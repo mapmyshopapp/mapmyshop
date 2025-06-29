@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta name="google-site-verification" content="0C3O3UyAhFYqCXfdf3tAe5tOYdOG58IcIocnKWKH3Sc" />
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="MapMyShop - The ultimate all-in-one solution to digitize your shop, streamline operations, and boost your growth worldwide.">
-
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="mapmyshop">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
+    <meta name="google-site-verification" content="0C3O3UyAhFYqCXfdf3tAe5tOYdOG58IcIocnKWKH3Sc" />
     <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="MapMyShop - The ultimate all-in-one solution to digitize your shop, streamline operations, and boost your growth worldwide.">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="mapmyshop">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MapMyShop - The Future of Business Management</title>
+
+    <!-- External Stylesheets & Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+    <!-- External Scripts -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
     <style>
         :root {
             --primary-bg: #0A0B1E;
@@ -28,6 +31,7 @@
             --primary-accent: #00F5FF;
             --secondary-accent: #AD00FF;
             --success-accent: #28a745;
+            --error-accent: #dc3545;
             --text-light: #EAEBFF;
             --text-medium: #A0A3C2;
             --text-dark: #0A0B1E;
@@ -38,23 +42,13 @@
             --transition-speed: 0.3s;
             --easing-curve: cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-light);
-            line-height: 1.7;
-            overflow-y: scroll;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            cursor: none;
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--primary-bg); color: var(--text-light); line-height: 1.7; overflow-y: scroll; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; cursor: none; }
         body.loading { overflow: hidden; }
+        body.modal-open { overflow: hidden; }
 
-        /* --- ULTIMATE SPLASH SCREEN --- */
+        /* --- PRELOADER --- */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--primary-bg); z-index: 9999; display: flex; justify-content: center; align-items: center; overflow: hidden; animation: preloaderFadeOut 1.5s 13s forwards; }
         .preloader-bg-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
         .preloader-slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; animation: preloaderImageFade 1.8s linear; animation-fill-mode: forwards; }
@@ -70,33 +64,47 @@
         .preloader-final-text { color: var(--primary-accent); font-size: 1.2em; font-weight: 500; letter-spacing: 1px; opacity: 0; animation: fadeIn 1s 11.5s ease-in forwards; margin-top: 30px; }
         .preloader-final-text i { margin-right: 10px; }
         @keyframes fadeIn { to { opacity: 1; } } @keyframes logoPopIn { 0% { opacity: 0; transform: scale(0.7); } 100% { opacity: 1; transform: scale(1); } } @keyframes logoZoomIn { to { transform: scale(50); opacity: 0; } } @keyframes preloaderFadeOut { to { opacity: 0; visibility: hidden; } } @keyframes cycleTagline { 0% { opacity: 0; transform: translate(-50%, 15px); } 20% { opacity: 1; transform: translate(-50%, 0); } 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -15px); } } @keyframes preloaderImageFade { 0% { opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; } }
-        
+
         /* --- INTERACTIVE CURSOR --- */
         #cursor-dot, #cursor-glow { position: fixed; transform: translate(-50%, -50%); pointer-events: none; z-index: 9998; border-radius: 50%; }
         #cursor-dot { width: 8px; height: 8px; background-color: var(--primary-accent); transition: transform 0.2s var(--easing-curve); }
         #cursor-glow { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0, 245, 255, 0.08) 0%, transparent 60%); transition: transform 0.1s ease-out; }
         body.link-hovered #cursor-dot { transform: translate(-50%, -50%) scale(3); background-color: rgba(0, 245, 255, 0.5); }
-        
+
         /* --- CORE LAYOUT & BACKGROUNDS --- */
         .animated-bg { width: 100%; height: 100vh; position: fixed; top: 0; left: 0; z-index: -2; background: linear-gradient(315deg, #0d0124, #12183b, #00416a); background-size: 400% 400%; animation: gradientAnimation 25s ease infinite; } @keyframes gradientAnimation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .top-bar { background-color: #060714; padding: 10px 0; font-size: 0.9em; border-bottom: 1px solid var(--glass-border); } .top-bar .container { display: flex; justify-content: flex-end; align-items: center; } .language-selector a { color: var(--text-medium); text-decoration: none; margin-left: 18px; transition: color var(--transition-speed); cursor: pointer; font-weight: 500; } .language-selector a:hover, .language-selector a.active { color: var(--primary-accent); }
-        
+
         /* --- HEADER --- */
         .main-header { background: rgba(16, 17, 42, 0.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--glass-border); padding: 15px 0; position: sticky; top: 0; width: 100%; z-index: 1000; } .main-header .container { display: flex; justify-content: space-between; align-items: center; } .logo img { height: 55px; transition: transform var(--transition-speed) var(--easing-curve), filter var(--transition-speed) var(--easing-curve); } .logo img:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--primary-accent)); } .main-nav ul { list-style: none; display: flex; align-items: center; } .main-nav ul li { margin-left: 35px; } .main-nav ul li a { color: var(--text-medium); text-decoration: none; font-weight: 500; transition: color var(--transition-speed) var(--easing-curve); padding: 10px 0; position: relative; font-size: 1.05em; } .main-nav ul li a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 50%; transform: translateX(-50%); background: var(--accent-gradient); border-radius: 3px; transition: width var(--transition-speed) var(--easing-curve); } .main-nav ul li a:hover, .main-nav ul li a.active { color: var(--text-light); } .main-nav ul li a:hover::after, .main-nav ul li a.active::after { width: 100%; }
-        
         .mobile-nav-trigger { display: none; background: transparent; border: 1px solid var(--glass-border); color: var(--text-light); padding: 8px 16px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.9em; cursor: pointer; transition: background-color var(--transition-speed), color var(--transition-speed); z-index: 1001; }
         .mobile-nav-trigger:hover { background-color: var(--primary-accent); color: var(--text-dark); }
-        
+
         /* --- HERO SECTION --- */
         .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 20px; position: relative; color: var(--text-light); overflow: hidden; } .hero-bg-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.15; } .hero-bg-slider .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: grayscale(80%) brightness(0.7); animation: heroFade 30s infinite linear; } .hero-bg-slider .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e2775d2?auto=format&fit=crop&w=1920&q=80'); animation-delay: 0s; } .hero-bg-slider .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c7da?auto=format&fit=crop&w=1920&q=80'); animation-delay: 5s; } .hero-bg-slider .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1920&q=80'); animation-delay: 10s; } .hero-bg-slider .slide:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1920&q=80'); animation-delay: 15s; } .hero-bg-slider .slide:nth-child(5) { background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1920&q=80'); animation-delay: 20s; } .hero-bg-slider .slide:nth-child(6) { background-image: url('https://images.unsplash.com/photo-1599409503680-9295013950df?auto=format&fit=crop&w=1920&q=80'); animation-delay: 25s; } @keyframes heroFade { 0% { opacity: 0; transform: scale(1.1); } 3% { opacity: 1; transform: scale(1); } 14% { opacity: 1; transform: scale(1); } 16.66% { opacity: 0; transform: scale(1.05); } 100% { opacity: 0; } } .hero-content { max-width: 950px; position: relative; z-index: 2; } .hero h1 { font-size: clamp(2.5em, 8vw, 4em); font-weight: 800; margin-bottom: 25px; line-height: 1.2; text-shadow: 0 0 20px rgba(0,0,0,0.5); background: linear-gradient(135deg, var(--text-light) 60%, var(--primary-accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } .hero h1 .brand-name { background: var(--accent-gradient); -webkit-background-clip: text; } .hero p.hero-main-subtitle { font-size: clamp(1.1em, 3vw, 1.4em); color: var(--text-medium); margin-bottom: 40px; max-width: 750px; margin-left: auto; margin-right: auto; }
-        
-        /* --- ALL OTHER STYLES (CONDENSED, UNCHANGED) --- */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 40px; background: var(--accent-gradient); color: var(--text-light) !important; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 1.1em; border: 1px solid transparent; text-transform: uppercase; letter-spacing: 1px; box-shadow: var(--shadow-md), var(--accent-glow); transition: all var(--transition-speed) var(--easing-curve); position: relative; overflow: hidden; } .btn:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), var(--accent-glow); } .btn::before { content: ''; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: left 0.6s ease-in-out; } .btn:hover::before { left: 125%; } .btn-group { display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 50px; } .google-play-badge { display: inline-block; height: 70px; transition: transform var(--transition-speed) var(--easing-curve), filter var(--transition-speed) var(--easing-curve); } .google-play-badge:hover { transform: scale(1.08); filter: brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.4)); } .google-play-badge img { height: 100%; width: auto; }
-        .section { padding: 100px 0; position: relative; background-color: transparent; z-index: 5; } .section-title { text-align: center; font-size: clamp(2.5em, 5vw, 3.5em); margin-bottom: 20px; color: var(--text-light); font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.3); } .section-subtitle { text-align: center; font-size: clamp(1.1em, 2.5vw, 1.25em); margin-bottom: 80px; color: var(--text-medium); max-width: 800px; margin-left: auto; margin-right: auto; }
-        #global-presence, #trusted-by, .all-in-one-platform, .app-preview, .about-us, #contact { background-color: var(--secondary-bg); }
-        #global-presence, #trusted-by { border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
-        .futuristic-card { background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 40px; box-shadow: var(--shadow-md); transition: transform var(--transition-speed) var(--easing-curve), box-shadow var(--transition-speed) var(--easing-curve); position: relative; overflow: hidden; } .futuristic-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: var(--border-radius); padding: 2px; background: var(--accent-gradient); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity var(--transition-speed) var(--easing-curve); } .futuristic-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.6), var(--accent-glow); } .futuristic-card:hover::before { opacity: 1; }
+
+        /* --- GENERIC & SECTION STYLES --- */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 16px 40px; background: var(--accent-gradient); color: var(--text-light) !important; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 1.1em; border: 1px solid transparent; text-transform: uppercase; letter-spacing: 1px; box-shadow: var(--shadow-md), var(--accent-glow); transition: all var(--transition-speed) var(--easing-curve); position: relative; overflow: hidden; cursor: pointer; }
+        .btn:hover { transform: translateY(-5px) scale(1.03); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), var(--accent-glow); }
+        .btn::before { content: ''; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: left 0.6s ease-in-out; }
+        .btn:hover::before { left: 125%; }
+        .btn:disabled { background: var(--glass-border); color: var(--text-medium) !important; box-shadow: none; cursor: not-allowed; transform: none; }
+        .btn:disabled:hover { transform: none; box-shadow: none; }
+        .btn:disabled::before { display: none; }
+        .btn-group { display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 50px; }
+        .google-play-badge { display: inline-block; height: 70px; transition: transform var(--transition-speed) var(--easing-curve), filter var(--transition-speed) var(--easing-curve); }
+        .google-play-badge:hover { transform: scale(1.08); filter: brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.4)); }
+        .google-play-badge img { height: 100%; width: auto; }
+        .section { padding: 100px 0; position: relative; background-color: transparent; z-index: 5; }
+        .section-title { text-align: center; font-size: clamp(2.5em, 5vw, 3.5em); margin-bottom: 20px; color: var(--text-light); font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .section-subtitle { text-align: center; font-size: clamp(1.1em, 2.5vw, 1.25em); margin-bottom: 80px; color: var(--text-medium); max-width: 800px; margin-left: auto; margin-right: auto; }
+        #global-presence, #trusted-by, .all-in-one-platform, .app-preview, .about-us, #contact, #vendor-cta, #cta { background-color: var(--secondary-bg); }
+        #global-presence, #trusted-by, #vendor-cta { border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); }
+        .futuristic-card { background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 40px; box-shadow: var(--shadow-md); transition: transform var(--transition-speed) var(--easing-curve), box-shadow var(--transition-speed) var(--easing-curve); position: relative; overflow: hidden; }
+        .futuristic-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: var(--border-radius); padding: 2px; background: var(--accent-gradient); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity var(--transition-speed) var(--easing-curve); }
+        .futuristic-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.6), var(--accent-glow); }
+        .futuristic-card:hover::before { opacity: 1; }
         .globe-container { position: relative; width: 90%; max-width: 450px; margin: 40px auto 0; aspect-ratio: 1 / 1; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 20px rgba(0, 245, 255, 0.3), 0 0 40px rgba(173, 0, 255, 0.2), inset 0 0 15px rgba(0, 245, 255, 0.2); }
         .globe-container::before { content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border-radius: 50%; background: conic-gradient(from 180deg at 50% 50%, var(--secondary-accent) 0%, var(--primary-accent) 50%, var(--secondary-accent) 100%); animation: rotateBorder 4s linear infinite; z-index: -1; }
         @keyframes rotateBorder { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -112,70 +120,55 @@
         .mobile-pdf-viewer { display: none; margin-top: 30px; }
         .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; } .testimonial-card { padding: 35px; } .testimonial-card::after { content: "\f10d"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 20px; right: 20px; font-size: 6em; color: rgba(160, 163, 194, 0.05); z-index: -1; transition: color var(--transition-speed) var(--easing-curve); } .testimonial-card:hover::after { color: rgba(0, 245, 255, 0.1); } .testimonial-card p.review-text { font-style: italic; color: var(--text-light); margin-bottom: 20px; font-size: 1.1em; line-height: 1.75; } .testimonial-card p.reviewer-name { font-weight: 600; text-align: right; font-size: 1.1em; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } .testimonial-card .stars { color: #FFD700; margin-bottom: 15px; font-size: 1.2em; letter-spacing: 3px; }
         .about-us-content { max-width: 850px; margin: 0 auto; text-align: center; } .about-us-content p { font-size: 1.15em; color: var(--text-medium); margin-bottom: 30px; line-height: 1.8; } .founder-info { margin-top: 40px; padding: 30px; border-top: 1px solid var(--glass-border); background: var(--card-bg); border-radius: var(--border-radius); } .founder-info h3 { font-size: 1.6em; color: var(--primary-accent); margin-bottom: 12px; font-weight: 600;} .founder-info p { font-size: 1.1em; color: var(--text-light); margin-bottom: 10px;} .about-us-content .address { font-style: normal; color: var(--text-light); font-weight: 500; margin-top: 40px; line-height: 1.9; background: var(--card-bg); padding: 30px; border-radius: var(--border-radius); } .about-us-content .address span { color: var(--primary-accent); display: block; font-size: 1.1em; font-weight: 600; margin-bottom: 10px; }
-        
-        /* [NEW] Team Members Styling */
         .team-title { font-size: 1.8em; color: var(--text-light); margin-top: 60px; margin-bottom: 40px; font-weight: 600; border-top: 1px solid var(--glass-border); padding-top: 40px; }
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; text-align: center; }
         .team-card h3 { font-size: 1.4em; color: var(--primary-accent); margin-bottom: 8px; font-weight: 600; }
         .team-card .team-role { font-size: 1em; color: var(--text-medium); font-weight: 500; }
         .team-card .team-coming-soon { font-style: italic; color: var(--text-medium); font-size: 1.1em; padding: 20px 0; display: flex; align-items: center; justify-content: center; height: 100%; }
-        
         #contact .contact-info { text-align: center; max-width: 750px; margin: 0 auto; padding: 40px 50px; } #contact .contact-info p { margin-bottom: 20px; font-size: 1.15em; line-height: 1.8; display: flex; align-items: center; justify-content: center; gap: 15px; } #contact .contact-info p i { color: var(--primary-accent); font-size: 1.4em; } #contact .contact-info a { color: var(--primary-accent); text-decoration: none; transition: color var(--transition-speed), text-shadow var(--transition-speed); font-weight: 500; } #contact .contact-info a:hover { color: var(--text-light); text-decoration: none; text-shadow: 0 0 8px var(--primary-accent); }
         .cta-section .container-inner { padding: 80px 50px; text-align: center; } .cta-section h2 { font-size: clamp(2.2em, 4.5vw, 3em); margin-bottom: 20px; color: var(--text-light); font-weight: 700;} .cta-section p { font-size: 1.2em; color: var(--text-medium); margin-bottom: 35px; max-width: 700px; margin-left: auto; margin-right: auto; } .cta-free-trial-text { font-size: 1.4em !important; color: var(--success-accent) !important; font-weight: 600; margin-bottom: 35px !important; display: flex; align-items: center; justify-content: center; gap: 10px; text-shadow: 0 0 10px rgba(40, 167, 69, 0.5); }
         .connect-us { padding-bottom: 80px; } .social-links { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; } .social-item { text-align: center; } .social-icon-wrapper { position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; } .social-icon-wrapper a { color: var(--text-medium); font-size: 1.8em; text-decoration: none; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--glass-border); transition: all var(--transition-speed) var(--easing-curve); z-index: 2; } .social-icon-wrapper a:hover { color: var(--text-light); background: rgba(16, 17, 42, 0.9); transform: scale(1.1); } .social-icon-wrapper::before { content: ''; position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; transform: translate(-50%, -50%); border-radius: 50%; background: var(--accent-gradient); z-index: 1; transition: all 0.5s var(--easing-curve); clip-path: circle(0% at 50% 50%); } .social-icon-wrapper:hover::before { clip-path: circle(70.7% at 50% 50%); } .social-icon-wrapper:hover a { box-shadow: var(--accent-glow); } .social-label { font-size: 0.8em; color: var(--text-medium); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-        .main-footer { background: #060714; color: var(--text-medium); text-align: center; padding: 50px 0; border-top: 1px solid var(--glass-border); position: relative; z-index: 5; } .main-footer a { color: var(--primary-accent); text-decoration: none; transition: color var(--transition-speed); } .main-footer a:hover { color: var(--text-light); } .scroll-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent-gradient); color: var(--text-light); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; text-decoration: none; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all var(--transition-speed) var(--easing-curve); z-index: 999; box-shadow: var(--shadow-md); } .scroll-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); } .scroll-to-top:hover { transform: scale(1.1) rotate(5deg); box-shadow: var(--accent-glow); }
-        
+        .main-footer { background: #060714; color: var(--text-medium); text-align: center; padding: 50px 0; border-top: 1px solid var(--glass-border); position: relative; z-index: 5; } .main-footer a { color: var(--primary-accent); text-decoration: none; transition: color var(--transition-speed); } .main-footer a:hover { color: var(--text-light); }
+        .scroll-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent-gradient); color: var(--text-light); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; text-decoration: none; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all var(--transition-speed) var(--easing-curve); z-index: 999; box-shadow: var(--shadow-md); } .scroll-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); } .scroll-to-top:hover { transform: scale(1.1) rotate(5deg); box-shadow: var(--accent-glow); }
+
+        /* --- [NEW] VENDOR CTA & MODAL STYLES --- */
+        .vendor-cta-card { cursor: pointer; text-align: center; padding: 50px; background: linear-gradient(135deg, rgba(0, 245, 255, 0.1) 0%, rgba(173, 0, 255, 0.1) 100%); transition: all var(--transition-speed) var(--easing-curve); }
+        .vendor-cta-card:hover { background: linear-gradient(135deg, rgba(0, 245, 255, 0.15) 0%, rgba(173, 0, 255, 0.15) 100%); transform: translateY(-10px) scale(1.02); }
+        .vendor-cta-card h3 { font-size: 2.2em; color: var(--text-light); margin-bottom: 15px; font-weight: 700; }
+        .vendor-cta-card p { font-size: 1.2em; color: var(--text-medium); max-width: 600px; margin: 0 auto 30px; }
+        .vendor-cta-card .btn { background: var(--accent-gradient); }
+
+        .vendor-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 11, 30, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.4s var(--easing-curve), visibility 0.4s var(--easing-curve); }
+        .vendor-modal-overlay.visible { opacity: 1; visibility: visible; }
+        .vendor-modal-container { background: var(--secondary-bg); border: 1px solid var(--glass-border); border-radius: var(--border-radius); box-shadow: var(--shadow-md); width: 90%; max-width: 480px; padding: 40px; position: relative; transform: scale(0.9); transition: transform 0.4s var(--easing-curve); }
+        .vendor-modal-overlay.visible .vendor-modal-container { transform: scale(1); }
+        .vendor-modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.8em; color: var(--text-medium); cursor: pointer; transition: color var(--transition-speed), transform var(--transition-speed); line-height: 1; }
+        .vendor-modal-close:hover { color: var(--primary-accent); transform: rotate(90deg); }
+        .vendor-modal-header h2 { font-size: 1.8em; font-weight: 600; color: var(--text-light); text-align: center; margin-bottom: 10px; }
+        .vendor-modal-header p { text-align: center; color: var(--text-medium); margin-bottom: 30px; font-size: 1em; }
+        .vendor-modal-form .form-group { margin-bottom: 20px; }
+        .vendor-modal-form label { display: block; font-weight: 500; color: var(--text-medium); margin-bottom: 8px; }
+        .vendor-modal-form input { width: 100%; background: var(--primary-bg); border: 1px solid var(--glass-border); border-radius: 8px; padding: 14px; font-size: 1em; color: var(--text-light); font-family: 'Poppins', sans-serif; transition: border-color var(--transition-speed), box-shadow var(--transition-speed); }
+        .vendor-modal-form input:focus { outline: none; border-color: var(--primary-accent); box-shadow: 0 0 10px rgba(0, 245, 255, 0.3); }
+        .vendor-modal-form .btn { width: 100%; margin-top: 10px; }
+        .modal-info-text { font-size: 0.9em; color: var(--error-accent); text-align: center; margin-top: 20px; font-weight: 500; }
+        .modal-message { padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; display: none; text-align: center; }
+        .modal-message.error { background-color: rgba(220, 53, 69, 0.2); border: 1px solid var(--error-accent); color: var(--error-accent); }
+        .modal-message.success { background-color: rgba(40, 167, 69, 0.2); border: 1px solid var(--success-accent); color: var(--success-accent); }
+        .modal-loader-container { display: none; text-align: center; padding: 20px 0; }
+        .modal-loader { width: 40px; height: 40px; border: 4px solid var(--glass-border); border-top-color: var(--primary-accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        .modal-loader-container p { font-size: 1em; color: var(--text-medium); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 992px) { .features-grid, .testimonials-grid, .team-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } .pdf-embed-container iframe { height: 65vh; } }
-        
-        @media (max-width: 768px) { 
-            html, body { overflow-x: hidden; }
-            body { cursor: auto; } 
-            #cursor-dot, #cursor-glow { display: none; } 
-            .hero { min-height: 85vh; padding: 100px 20px; }
-            .hero h1 { font-size: clamp(2.2em, 9vw, 3em); }
-            .mobile-nav-trigger { display: block; }
-            .main-nav > ul { display: none; }
-            .main-nav { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background: rgba(16, 17, 42, 0.85); backdrop-filter: blur(15px); padding: 100px 20px 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.5s var(--easing-curve); } 
-            .main-nav.active { right: 0; }
-            .main-nav.active > ul { display: flex; flex-direction: column; width: 100%; align-items: flex-start; }
-            .main-nav ul li { margin: 20px 0; width: 100%; } 
-            .main-nav ul li a { font-size: 1.3em; display: block; padding: 10px 15px; } 
-            .main-nav ul li a::after { display: none; } 
-            .main-nav ul li a:hover, .main-nav ul li a.active { color: var(--primary-accent); background: rgba(0, 245, 255, 0.1); border-radius: 8px; } 
-            .section { padding: 80px 0; } .section-subtitle { margin-bottom: 60px; } 
-            .features-grid, .testimonials-grid { grid-template-columns: 1fr; } 
-            .futuristic-card, .testimonial-card, .feature-card, .team-card { padding: 30px; } 
-            .globe-container { max-width: 300px; }
-            .logo-wall { gap: 40px; } .logo-item { height: 40px; } .logo-item .joining-soon { font-size: 1em; padding: 10px 20px; }
-            .all-in-one-platform .platform-content ul { gap: 15px; }
-            #app-preview .pdf-embed-container { display: none; }
-            #app-preview .mobile-pdf-viewer { display: inline-flex; }
-            #app-preview .container { text-align: center; }
-        }
-        @media (max-width: 480px) { 
-            .logo img { height: 45px; } 
-            .btn { padding: 14px 30px; font-size: 1em; } .google-play-badge { height: 55px; } 
-            .section { padding: 60px 0; }
-            .section-title { font-size: 2em; }
-            .section-subtitle { font-size: 1em; margin-bottom: 40px; }
-            .hero { min-height: auto; padding-top: 80px; padding-bottom: 80px; }
-            .hero h1 { font-size: 2.2em; }
-            .futuristic-card, .testimonial-card, .feature-card, .contact-info, .team-card { padding: 25px; }
-            .all-in-one-platform .platform-content ul li { font-size: 0.9em; padding: 12px 20px; }
-            .free-trial-banner { font-size: 1.1em; padding: 20px; }
-            #contact .contact-info p { flex-direction: column; gap: 8px; font-size: 1em; } 
-            .logo-wall { gap: 30px; } .logo-item { height: 35px; }
-            .logo-item .joining-soon { width: 100%; justify-content: center; }
-            .cta-section .container-inner { padding: 60px 25px; }
-            .globe-container { max-width: 250px; }
-            .team-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 768px) { html, body { overflow-x: hidden; } body { cursor: auto; } #cursor-dot, #cursor-glow { display: none; } .hero { min-height: 85vh; padding: 100px 20px; } .hero h1 { font-size: clamp(2.2em, 9vw, 3em); } .mobile-nav-trigger { display: block; } .main-nav > ul { display: none; } .main-nav { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background: rgba(16, 17, 42, 0.85); backdrop-filter: blur(15px); padding: 100px 20px 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.5s var(--easing-curve); } .main-nav.active { right: 0; } .main-nav.active > ul { display: flex; flex-direction: column; width: 100%; align-items: flex-start; } .main-nav ul li { margin: 20px 0; width: 100%; } .main-nav ul li a { font-size: 1.3em; display: block; padding: 10px 15px; } .main-nav ul li a::after { display: none; } .main-nav ul li a:hover, .main-nav ul li a.active { color: var(--primary-accent); background: rgba(0, 245, 255, 0.1); border-radius: 8px; } .section { padding: 80px 0; } .section-subtitle { margin-bottom: 60px; } .features-grid, .testimonials-grid { grid-template-columns: 1fr; } .futuristic-card, .testimonial-card, .feature-card, .team-card { padding: 30px; } .globe-container { max-width: 300px; } .logo-wall { gap: 40px; } .logo-item { height: 40px; } .logo-item .joining-soon { font-size: 1em; padding: 10px 20px; } .all-in-one-platform .platform-content ul { gap: 15px; } #app-preview .pdf-embed-container { display: none; } #app-preview .mobile-pdf-viewer { display: inline-flex; } #app-preview .container { text-align: center; } }
+        @media (max-width: 480px) { .logo img { height: 45px; } .btn { padding: 14px 30px; font-size: 1em; } .google-play-badge { height: 55px; } .section { padding: 60px 0; } .section-title { font-size: 2em; } .section-subtitle { font-size: 1em; margin-bottom: 40px; } .hero { min-height: auto; padding-top: 80px; padding-bottom: 80px; } .hero h1 { font-size: 2.2em; } .futuristic-card, .testimonial-card, .feature-card, .contact-info, .team-card { padding: 25px; } .all-in-one-platform .platform-content ul li { font-size: 0.9em; padding: 12px 20px; } .free-trial-banner { font-size: 1.1em; padding: 20px; } #contact .contact-info p { flex-direction: column; gap: 8px; font-size: 1em; } .logo-wall { gap: 30px; } .logo-item { height: 35px; } .logo-item .joining-soon { width: 100%; justify-content: center; } .cta-section .container-inner { padding: 60px 25px; } .globe-container { max-width: 250px; } .team-grid { grid-template-columns: 1fr; } }
         @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) { .main-header, .main-nav, .futuristic-card { background: var(--secondary-bg); } .main-nav { background: #10112A; } }
     </style>
 </head>
 <body class="loading">
-    
+
     <div id="preloader">
         <div class="preloader-bg-slider">
             <div class="preloader-slide" style="background-image: url('https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=1920&q=80')"><h2>India</h2></div>
@@ -216,9 +209,7 @@
             <a href="#" class="logo">
                 <img src="https://firebasestorage.googleapis.com/v0/b/bmapmyshop.appspot.com/o/company_logo.png?alt=media&token=0f5fc393-894a-43a3-9bd1-41505a80bf57" alt="MapMyShop Logo">
             </a>
-            
             <button class="mobile-nav-trigger" aria-label="Toggle navigation" aria-expanded="false" data-lang-key="navMenuButton">Menu</button>
-            
             <nav class="main-nav">
                 <ul>
                     <li><a href="#" class="active" data-lang-key="navHome">Home</a></li>
@@ -307,7 +298,6 @@
             <div class="container">
                 <h2 class="section-title" data-lang-key="appPreviewTitle" data-aos="fade-up">See MapMyShop in Action</h2>
                 <p class="section-subtitle" data-lang-key="appPreviewSubtitle" data-aos="fade-up" data-aos-delay="100">Get a glimpse of how our app simplifies business management and enhances customer connection.</p>
-                
                 <div class="pdf-embed-container futuristic-card" data-aos="zoom-in-up" data-aos-delay="200">
                     <iframe src="https://firebasestorage.googleapis.com/v0/b/bmapmyshop.appspot.com/o/pdfscreenshot.pdf?alt=media&token=5aeb51b1-4a52-42ea-8734-3ae1ae006262" aria-label="MapMyShop App Demo PDF"> Your browser does not support direct PDF embedding. <a href="https://firebasestorage.googleapis.com/v0/b/bmapmyshop.appspot.com/o/pdfscreenshot.pdf?alt=media&token=5aeb51b1-4a52-42ea-8734-3ae1ae006262" target="_blank" rel="noopener noreferrer">Please download the PDF to view it.</a> </iframe>
                 </div>
@@ -328,6 +318,17 @@
             </div>
         </section>
 
+        <!-- VENDOR SUBSCRIPTION CTA SECTION -->
+        <section id="vendor-cta" class="section">
+            <div class="container">
+                <div class="futuristic-card vendor-cta-card" data-aos="zoom-in-up" id="vendor-cta-trigger">
+                    <h3>Join Our Vendor Family</h3>
+                    <p>Join our MapMyShop family by subscribing to our Vendor Plan. Click here to start your journey with us. We value your partnership and look forward to growing together.</p>
+                    <span class="btn"><i class="fas fa-rocket"></i> Subscribe Now</span>
+                </div>
+            </div>
+        </section>
+
         <section id="about-us" class="about-us section">
             <div class="container" data-aos="fade-up">
                 <h2 class="section-title" data-lang-key="aboutTitle">About MapMyShop</h2>
@@ -336,8 +337,6 @@
                     <p data-lang-key="aboutP2">Our core mission is to make sophisticated technology accessible, affordable, and remarkably easy to use. We're here to help you streamline operations, amplify your visibility, foster growth, and ultimately, build a more successful and resilient business.</p>
                     <div class="founder-info" data-aos="fade-up" data-aos-delay="100"> <h3 data-lang-key="aboutFounderTitle">Our Leadership</h3> <p data-lang-key="aboutFounderName">Balkrushna Tapase</p> <p data-lang-key="aboutFounderRole">Founder & CEO, MapMyShop</p> </div>
                     <address class="address" data-aos="fade-up" data-aos-delay="200"> <span data-lang-key="aboutContactUs"><i class="fas fa-map-marker-alt"></i> Contact Us / Visit Us:</span> Plot No 16, Meharun<br>Jalgaon, Maharashtra, 425001<br>India </address>
-                    
-                    <!-- [NEW] Team Section -->
                     <h3 class="team-title" data-lang-key="teamTitle" data-aos="fade-up">Meet Our Core Team</h3>
                     <div class="team-grid">
                         <div class="futuristic-card team-card" data-aos="fade-up" data-aos-delay="100">
@@ -407,129 +406,303 @@
 
     <a href="#" class="scroll-to-top" aria-label="Scroll to top"> <i class="fas fa-arrow-up"></i> </a>
 
+    <!-- VENDOR LOGIN AND PAYMENT MODAL -->
+    <div class="vendor-modal-overlay" id="vendor-login-modal">
+        <div class="vendor-modal-container">
+            <button class="vendor-modal-close" id="vendor-modal-close-btn">×</button>
+            <div class="vendor-modal-content">
+                <div class="vendor-modal-header">
+                    <h2>Vendor Subscription</h2>
+                    <p id="modal-subtitle">Login to your vendor account to proceed with the payment.</p>
+                </div>
+
+                <div class="modal-message" id="modal-message-box"></div>
+                
+                <div class="modal-loader-container" id="modal-loader-container">
+                    <div class="modal-loader"></div>
+                    <p id="modal-loader-text">Please wait...</p>
+                </div>
+
+                <form class="vendor-modal-form" id="vendor-login-form">
+                    <div class="form-group">
+                        <label for="vendor-email">Email</label>
+                        <input type="email" id="vendor-email" name="email" required autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="vendor-password">Password</label>
+                        <input type="password" id="vendor-password" name="password" required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn" id="login-submit-btn">Login & Proceed</button>
+                    <p class="modal-info-text">For registered app vendors only.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LIBRARIES -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!--
+      IMPORTANT: Create a 'firebase-config.js' file in the same directory.
+      This file must contain your Firebase project configuration object.
+      It is a critical security practice to keep credentials separate.
+    -->
+    <script src="firebase-config.js"></script>
+    
+    <!-- MAIN APPLICATION SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- SITE INITIALIZATION LOGIC (Existing Functionality) ---
             const body = document.body;
             
-            // --- Preloader, Cursor, AOS Init (Unchanged) ---
+            // Preloader
             const preloader = document.getElementById('preloader');
-            setTimeout(() => { body.classList.remove('loading'); if (preloader) { setTimeout(() => { preloader.style.display = 'none'; }, 1500); } }, 14500);
+            setTimeout(() => {
+                body.classList.remove('loading');
+                if (preloader) {
+                    setTimeout(() => { preloader.style.display = 'none'; }, 1500);
+                }
+            }, 14500);
+
+            // Interactive Cursor
             const cursorDot = document.getElementById('cursor-dot');
             const cursorGlow = document.getElementById('cursor-glow');
             if (window.matchMedia("(pointer: fine)").matches) {
-                document.addEventListener('mousemove', (e) => { requestAnimationFrame(() => { if (cursorDot) cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`; if (cursorGlow) cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`; }); });
-                document.querySelectorAll('a, button, .btn, .language-selector a, .social-icon-wrapper a, .scroll-to-top').forEach(el => { el.addEventListener('mouseenter', () => body.classList.add('link-hovered')); el.addEventListener('mouseleave', () => body.classList.remove('link-hovered')); });
-            } else { body.style.cursor = 'auto'; if (cursorDot) cursorDot.style.display = 'none'; if (cursorGlow) cursorGlow.style.display = 'none'; }
-            AOS.init({ duration: 800, once: true, offset: 100, easing: 'ease-out-cubic' });
+                document.addEventListener('mousemove', (e) => {
+                    requestAnimationFrame(() => {
+                        if (cursorDot) cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                        if (cursorGlow) cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                    });
+                });
+                document.querySelectorAll('a, button, .btn, .language-selector a, .social-icon-wrapper a, .scroll-to-top, .vendor-cta-card').forEach(el => {
+                    el.addEventListener('mouseenter', () => body.classList.add('link-hovered'));
+                    el.addEventListener('mouseleave', () => body.classList.remove('link-hovered'));
+                });
+            } else {
+                body.style.cursor = 'auto';
+                if (cursorDot) cursorDot.style.display = 'none';
+                if (cursorGlow) cursorGlow.style.display = 'none';
+            }
 
-            // --- Mobile Navigation & Translation Logic ---
+            // Animate on Scroll (AOS)
+            AOS.init({ duration: 800, once: true, offset: 100, easing: 'ease-out-cubic' });
+            
+            // Mobile Navigation
             const mobileNavTrigger = document.querySelector('.mobile-nav-trigger');
             const mainNav = document.querySelector('.main-nav');
-            const currentTranslations = {};
-
             if (mobileNavTrigger && mainNav) {
-                mainNav.classList.remove('active');
-                mobileNavTrigger.setAttribute('aria-expanded', 'false');
                 mobileNavTrigger.addEventListener('click', () => {
                     const isActive = mainNav.classList.toggle('active');
                     mobileNavTrigger.setAttribute('aria-expanded', isActive);
-                    mobileNavTrigger.innerHTML = isActive ? (currentTranslations.navCloseButton || 'Close') : (currentTranslations.navMenuButton || 'Menu');
                     body.style.overflow = isActive ? 'hidden' : '';
                 });
             }
+            
+            // Scroll to Top Button
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            window.addEventListener('scroll', () => {
+                if(scrollToTopBtn) scrollToTopBtn.classList.toggle('visible', window.pageYOffset > 300);
+            });
 
-            // --- Scrolling & Navigation Links Logic (Unchanged) ---
-            const navLinks = document.querySelectorAll('.main-nav a[href^="#"], .logo a[href="#"]');
-            navLinks.forEach(anchor => { anchor.addEventListener('click', function (e) { if (this.getAttribute('href').startsWith('#')) { if (mainNav.classList.contains('active')) { mobileNavTrigger.click(); } } }); });
-            const sections = document.querySelectorAll('.section'); const header = document.querySelector('.main-header'); const scrollToTopBtn = document.querySelector('.scroll-to-top'); function onScroll() { const scrollPosition = window.pageYOffset; const headerHeight = header ? header.offsetHeight : 70; if (scrollToTopBtn) { scrollToTopBtn.classList.toggle('visible', scrollPosition > 300); } let currentSectionId = ""; sections.forEach(section => { if (section.id && scrollPosition >= section.offsetTop - headerHeight - 60) { currentSectionId = section.getAttribute('id'); } }); document.querySelectorAll('.main-nav a[href^="#"]').forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === `#${currentSectionId}`) { link.classList.add('active'); } }); if (currentSectionId === "") { const homeLink = document.querySelector('.main-nav a[href="#"]'); if(homeLink) homeLink.classList.add('active'); } }
-            window.addEventListener('scroll', onScroll); onScroll();
-            navLinks.forEach(anchor => { anchor.addEventListener('click', function (e) { const href = this.getAttribute('href'); if (href && href.startsWith('#')) { e.preventDefault(); const targetElement = (href === "#") ? body : document.querySelector(href); if (targetElement) { let headerOffset = header ? header.offsetHeight : 70; let elementPosition = (href === "#") ? 0 : targetElement.getBoundingClientRect().top + window.pageYOffset; if (href === "#") headerOffset = 0; window.scrollTo({ top: elementPosition - headerOffset - 20, behavior: "smooth" }); } } }); });
+            // Smooth Scrolling for Nav Links
+             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                    if(mainNav.classList.contains('active')) mobileNavTrigger.click();
+                });
+            });
 
-            // --- Complete Translation Dictionary ---
-            const translations = {
-                en: {
-                    navMenuButton: "Menu", navCloseButton: "Close",
-                    splashGreeting: "Welcome", splashTagline1: "Digitize Your Storefront.", splashTagline2: "Empower Your Employees.", splashTagline3: "Shine Online.", splashGlobalText: "<i class='fas fa-globe'></i> Now available in 177+ countries",
-                    navHome: "Home", navPlatform: "Our Platform", navFeatures: "Features", navAppPreview: "App Preview", navReviews: "Reviews", navAbout: "About Us", navContact: "Contact",
-                    heroTitle: "<span class='brand-name'>MapMyShop:</span> Your Business, Intelligently Mapped & Managed.", heroSubtitle: "The ultimate all-in-one solution to digitize your shop, streamline operations, and boost your growth.", heroDownloadApp: "<i class='fas fa-download'></i> Download Our App",
-                    globalTitle: "Connecting Businesses Worldwide", globalSubtitle: "From local shops to international enterprises, MapMyShop is building a global network of empowered businesses across 177+ countries.",
-                    platformTitle: "MapMyShop: The All-in-One Business Powerhouse", platformSubtitle: "Stop juggling multiple tools! MapMyShop provides a unified platform to manage every aspect of your local business, from daily operations to strategic growth.", platformFeature1: "<i class='fas fa-store-alt'></i> Digital Storefront & Online Orders", platformFeature2: "<i class='fas fa-users-cog'></i> Comprehensive Employee Management", platformFeature3: "<i class='fas fa-id-card'></i> Professional I-Card Generation", platformFeature4: "<i class='fas fa-boxes-stacked'></i> Smart Inventory Control", platformFeature5: "<i class='fas fa-chart-pie'></i> Insightful Sales Analytics", platformFeature6: "<i class='fas fa-bullhorn'></i> Customer Engagement Tools", platformFreeTrial: "<i class='fas fa-gift'></i> FREE 1-Month Trial Activated! Experience the Full Power of MapMyShop.",
-                    trustedTitle: "Powering The Next Wave of Business", trustedSubtitle: "We are building the technological foundation for industry leaders and ambitious startups alike.", trustedJoiningSoon: "And many more joining soon...",
-                    featuresTitle: "Key Features to Revolutionize Your Shop", featuresSubtitle: "Explore the tools designed to simplify your work, engage customers, and drive success.", feature1Title: "Comprehensive Employee Management", feature1Desc: "Effortlessly manage staff schedules, track attendance, assign tasks, and generate professional I-Cards, all in one place.", feature2Title: "Digital Storefront & Online Presence", feature2Desc: "Take your shop online instantly. Showcase products, accept orders, and reach a wider customer base with your own digital presence.", feature3Title: "Automated Invoicing", feature3Desc: "Generate digital invoices automatically and send them directly to customers via email or WhatsApp, streamlining your checkout process.", feature4Title: "Intelligent Mapping & Discovery", feature4Desc: "Boost your visibility. Help new customers find your shop and understand your market with our advanced mapping solutions.",
-                    appPreviewTitle: "See MapMyShop in Action", appPreviewSubtitle: "Get a glimpse of how our app simplifies business management and enhances customer connection.", appPreviewMobileButton: "<i class='fas fa-file-pdf'></i> View Preview",
-                    reviewsTitle: "Hear From Our Users", reviewsSubtitle: "See how MapMyShop is transforming local businesses like yours.", review1Text: "\"Employee management has become so much easier using MapMyShop. Tracking hours and performance is a breeze!\"", review1Author: "- A Happy Shop Owner", review2Text: "\"MapMyShop's stock management is incredibly intuitive. We always know what's on our shelves and what needs reordering.\"", review2Author: "- Retail Store Manager",
-                    aboutTitle: "About MapMyShop", aboutP1: "At MapMyShop, we are passionately dedicated to empowering local businesses with the transformative technology they need to thrive in today's competitive market. We provide comprehensive, cutting-edge tech solutions tailored to solve your unique operational challenges—from intelligent inventory and employee management to dynamic customer engagement and insightful market analysis.", aboutP2: "Our core mission is to make sophisticated technology accessible, affordable, and remarkably easy to use. We're here to help you streamline operations, amplify your visibility, foster growth, and ultimately, build a more successful and resilient business.", aboutFounderTitle: "Our Leadership", aboutFounderName: "Balkrushna Tapase", aboutFounderRole: "Founder & CEO, MapMyShop", aboutContactUs: "<i class='fas fa-map-marker-alt'></i> Contact Us / Visit Us:",
-                    teamTitle: "Meet Our Core Team", teamMemberGauravName: "Gaurav", teamMemberGauravRole: "Marketing Head", teamMemberRushikeshName: "Rushikesh Jadhav", teamMemberRushikeshRole: "Backend Developer", teamMemberAbhayName: "Abhay Patil", teamMemberAbhayRole: "Web Developer", teamComingSoon: "And many more amazing team members are joining soon...",
-                    ctaTitle: "Ready to Transform Your Business?", ctaSubtitle: "Join thousands of businesses thriving with MapMyShop's all-in-one solution. Download the app and start your journey to success.", ctaFreeTrialText: "<i class='fas fa-check-circle'></i> Your FREE 1-Month Trial is Waiting!", ctaDownloadApp: "<i class='fas fa-rocket'></i> Get The App Now",
-                    contactTitle: "Get In Touch", contactSubtitle: "Have questions or want to learn more? We're here to help!", contactEmail: "<i class='fas fa-envelope'></i>Email: <a href=\"mailto:mapmyshop2024@gmail.com\">mapmyshop2024@gmail.com</a>", contactPhone: "<i class='fas fa-phone-alt'></i>Phone No: <a href=\"tel:+919529338232\">+91 9529338232</a>", contactAddressInfo: "<i class='fas fa-building'></i>Or visit us at the address mentioned in the About Us section.", contactQueryMessage: "Feel free to contact us, we will be happy to serve you.",
-                    connectTitle: "Connect With Us", connectYoutube: "YouTube", connectLinkedin: "LinkedIn", connectInstagram: "Instagram (Coming Soon)",
-                    footerCopyright: "© 2024 MapMyShop Inc. All rights reserved.", footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service"
-                },
-                hi: {
-                    navMenuButton: "मेनू", navCloseButton: "बंद करें",
-                    splashGreeting: "आपका स्वागत है", splashTagline1: "अपनी दुकान को डिजिटल बनाएं।", splashTagline2: "अपने कर्मचारियों को सशक्त बनाएं।", splashTagline3: "ऑनलाइन चमकें।", splashGlobalText: "<i class='fas fa-globe'></i> अब 177+ देशों में उपलब्ध है",
-                    navHome: "होम", navPlatform: "हमारा प्लेटफार्म", navFeatures: "विशेषताएँ", navAppPreview: "ऐप पूर्वावलोकन", navReviews: "समीक्षाएँ", navAbout: "हमारे बारे में", navContact: "संपर्क करें",
-                    heroTitle: "<span class='brand-name'>मैपमाईशॉप:</span> आपका व्यवसाय, बुद्धिमानी से मैप और प्रबंधित।", heroSubtitle: "अपनी दुकान को डिजिटाइज़ करने, संचालन को सुव्यवस्थित करने और अपने विकास को बढ़ावा देने के लिए अंतिम ऑल-इन-वन समाधान।", heroDownloadApp: "<i class='fas fa-download'></i> हमारा ऐप डाउनलोड करें",
-                    globalTitle: "दुनिया भर के व्यवसायों को जोड़ना", globalSubtitle: "स्थानीय दुकानों से लेकर अंतरराष्ट्रीय उद्यमों तक, मैपमाईशॉप 177+ देशों में सशक्त व्यवसायों का एक वैश्विक नेटवर्क बना रहा है।",
-                    platformTitle: "मैपमाईशॉप: ऑल-इन-वन बिजनेस पावरहाउस", platformSubtitle: "कई टूल के बीच जूझना बंद करें! मैपमाईशॉप आपके स्थानीय व्यवसाय के हर पहलू को प्रबंधित करने के लिए एक एकीकृत मंच प्रदान करता है, दैनिक संचालन से लेकर रणनीतिक विकास तक।", platformFeature1: "<i class='fas fa-store-alt'></i> डिजिटल स्टोरफ्रंट और ऑनलाइन ऑर्डर", platformFeature2: "<i class='fas fa-users-cog'></i> व्यापक कर्मचारी प्रबंधन", platformFeature3: "<i class='fas fa-id-card'></i> पेशेवर आई-कार्ड जनरेशन", platformFeature4: "<i class='fas fa-boxes-stacked'></i> स्मार्ट इन्वेंटरी नियंत्रण", platformFeature5: "<i class='fas fa-chart-pie'></i> अंतर्दृष्टिपूर्ण बिक्री विश्लेषण", platformFeature6: "<i class='fas fa-bullhorn'></i> ग्राहक जुड़ाव उपकरण", platformFreeTrial: "<i class='fas fa-gift'></i> मुफ़्त 1-महीने का ट्रायल सक्रिय! मैपमाईशॉप की पूरी शक्ति का अनुभव करें।",
-                    trustedTitle: "व्यवसाय की अगली लहर को शक्ति देना", trustedSubtitle: "हम उद्योग के नेताओं और महत्वाकांक्षी स्टार्टअप्स के लिए समान रूप से तकनीकी नींव बना रहे हैं।", trustedJoiningSoon: "और भी बहुत कुछ जल्द ही जुड़ रहा है...",
-                    featuresTitle: "आपकी दुकान में क्रांति लाने वाली मुख्य विशेषताएँ", featuresSubtitle: "अपने काम को सरल बनाने, ग्राहकों को जोड़ने और सफलता दिलाने के लिए डिज़ाइन किए गए टूल का अन्वेषण करें।", feature1Title: "व्यापक कर्मचारी प्रबंधन", feature1Desc: "कर्मचारी शेड्यूल को सहजता से प्रबंधित करें, उपस्थिति ट्रैक करें, कार्य सौंपें, और पेशेवर आई-कार्ड उत्पन्न करें, सब एक ही स्थान पर।", feature2Title: "डिजिटल स्टोरफ्रंट और ऑनलाइन उपस्थिति", feature2Desc: "अपनी दुकान को तुरंत ऑनलाइन ले जाएं। उत्पादों का प्रदर्शन करें, ऑर्डर स्वीकार करें, और अपनी डिजिटल उपस्थिति के साथ व्यापक ग्राहक आधार तक पहुंचें।", feature3Title: "स्वचालित चालान-प्रक्रिया", feature3Desc: "डिजिटल चालान स्वचालित रूप से बनाएं और उन्हें सीधे ग्राहकों को ईमेल या व्हाट्सएप के माध्यम से भेजें, जिससे आपकी चेकआउट प्रक्रिया सुव्यवस्थित हो।", feature4Title: "बुद्धिमान मानचित्रण और खोज", feature4Desc: "अपनी दृश्यता बढ़ाएँ। नए ग्राहकों को आपकी दुकान ढूंढने में मदद करें और हमारे उन्नत मानचित्रण समाधानों के साथ अपने बाजार को समझें।",
-                    appPreviewTitle: "मैपमाईशॉप को एक्शन में देखें", appPreviewSubtitle: "एक झलक पाएं कि हमारा ऐप व्यवसाय प्रबंधन को कैसे सरल बनाता है और ग्राहक कनेक्शन को कैसे बढ़ाता है।", appPreviewMobileButton: "<i class='fas fa-file-pdf'></i> पूर्वावलोकन देखें",
-                    reviewsTitle: "हमारे उपयोगकर्ताओं से सुनें", reviewsSubtitle: "देखें कि मैपमाईशॉप आपके जैसे स्थानीय व्यवसायों को कैसे बदल रहा है।", review1Text: "\"मैपमाईशॉप का उपयोग करके कर्मचारी प्रबंधन बहुत आसान हो गया है। घंटे और प्रदर्शन पर नज़र रखना आसान है!\"", review1Author: "- एक खुश दुकान मालिक", review2Text: "\"मैपमाईशॉप का स्टॉक प्रबंधन अविश्वसनीय रूप से सहज है। हम हमेशा जानते हैं कि हमारी अलमारियों पर क्या है और क्या पुनः ऑर्डर करने की आवश्यकता है।\"", review2Author: "- खुदरा स्टोर प्रबंधक",
-                    aboutTitle: "मैपमाईशॉप के बारे में", aboutP1: "मैपमाईशॉप में, हम स्थानीय व्यवसायों को आज के प्रतिस्पर्धी बाजार में आगे बढ़ने के लिए आवश्यक परिवर्तनकारी तकनीक के साथ सशक्त बनाने के लिए पूरी लगन से समर्पित हैं। हम आपकी अनूठी परिचालन चुनौतियों को हल करने के लिए व्यापक, अत्याधुनिक तकनीकी समाधान प्रदान करते हैं - बुद्धिमान इन्वेंट्री और कर्मचारी प्रबंधन से लेकर गतिशील ग्राहक जुड़ाव और अंतर्दृष्टिपूर्ण बाजार विश्लेषण तक।", aboutP2: "हमारा मुख्य मिशन परिष्कृत तकनीक को सुलभ, किफायती और उल्लेखनीय रूप से उपयोग में आसान बनाना है। हम यहां संचालन को सुव्यवस्थित करने, आपकी दृश्यता बढ़ाने, विकास को बढ़ावा देने और अंततः एक अधिक सफल और लचीला व्यवसाय बनाने में आपकी सहायता करने के लिए हैं।", aboutFounderTitle: "हमारा नेतृत्व", aboutFounderName: "बाळकृष्ण तपासे", aboutFounderRole: "संस्थापक और सीईओ, मैपमाईशॉप", aboutContactUs: "<i class='fas fa-map-marker-alt'></i> हमसे संपर्क करें / हमसे मिलें:",
-                    teamTitle: "हमारी कोर टीम से मिलें", teamMemberGauravName: "गौरव", teamMemberGauravRole: "विपणन प्रमुख", teamMemberRushikeshName: "ऋषिकेश जाधव", teamMemberRushikeshRole: "बैकएंड डेवलपर", teamMemberAbhayName: "अभय पाटिल", teamMemberAbhayRole: "वेब डेवलपर", teamComingSoon: "और भी कई अद्भुत टीम सदस्य जल्द ही जुड़ रहे हैं...",
-                    ctaTitle: "अपने व्यवसाय को बदलने के लिए तैयार हैं?", ctaSubtitle: "मैपमाईशॉप के ऑल-इन-वन समाधान के साथ फल-फूल रहे हजारों व्यवसायों से जुड़ें। ऐप डाउनलोड करें और सफलता की अपनी यात्रा शुरू करें।", ctaFreeTrialText: "<i class='fas fa-check-circle'></i> आपका मुफ़्त 1-महीने का ट्रायल इंतज़ार कर रहा है!", ctaDownloadApp: "<i class='fas fa-rocket'></i> अभी ऐप प्राप्त करें",
-                    contactTitle: "संपर्क में रहें", contactSubtitle: "कोई प्रश्न है या अधिक जानना चाहते हैं? हमलोग यहां सहायता के लिए हैं!", contactEmail: "<i class='fas fa-envelope'></i>ईमेल: <a href=\"mailto:mapmyshop2024@gmail.com\">mapmyshop2024@gmail.com</a>", contactPhone: "<i class='fas fa-phone-alt'></i>फ़ोन नंबर: <a href=\"tel:+919529338232\">+91 9529338232</a>", contactAddressInfo: "<i class='fas fa-building'></i>या हमारे बारे में अनुभाग में उल्लिखित पते पर हमसे मिलें।", contactQueryMessage: "कोई भी प्रश्न पूछने के लिए स्वतंत्र महसूस करें, हम आपकी सेवा करके खुश होंगे।",
-                    connectTitle: "हमसे जुड़ें", connectYoutube: "यूट्यूब", connectLinkedin: "लिंक्डइन", connectInstagram: "इंस्टाग्राम (जल्द आ रहा है)",
-                    footerCopyright: "© 2024 मैपमाईशॉप इंक. सर्वाधिकार सुरक्षित।", footerPrivacy: "गोपनीयता नीति", footerTerms: "सेवा की शर्तें"
-                },
-                mr: {
-                    navMenuButton: "मेनू", navCloseButton: "बंद करा",
-                    splashGreeting: "आपले स्वागत आहे", splashTagline1: "तुमचे दुकान डिजिटल करा.", splashTagline2: "तुमच्या कर्मचाऱ्यांना सक्षम करा.", splashTagline3: "ऑनलाइन चमका.", splashGlobalText: "<i class='fas fa-globe'></i> आता १७७+ देशांमध्ये उपलब्ध",
-                    navHome: "मुख्यपृष्ठ", navPlatform: "आमचे प्लॅटफॉर्म", navFeatures: "वैशिष्ट्ये", navAppPreview: "ॲप पूर्वावलोकन", navReviews: "पुनरावलोकने", navAbout: "आमच्याबद्दल", navContact: "संपर्क",
-                    heroTitle: "<span class='brand-name'>मॅपमायशॉप:</span> तुमचा व्यवसाय, हुशारीने मॅप आणि व्यवस्थापित.", heroSubtitle: "तुमचे दुकान डिजिटाईज करण्यासाठी, ऑपरेशन्स सुव्यवस्थित करण्यासाठी आणि तुमच्या वाढीला चालना देण्यासाठी अंतिम ऑल-इन-वन समाधान.", heroDownloadApp: "<i class='fas fa-download'></i> आमचे ॲप डाउनलोड करा",
-                    globalTitle: "जगभरातील व्यवसायांना जोडत आहे", globalSubtitle: "स्थानिक दुकानांपासून ते आंतरराष्ट्रीय उद्योगांपर्यंत, मॅपमायशॉप १७७+ देशांमध्ये सक्षम व्यवसायांचे जागतिक नेटवर्क तयार करत आहे.",
-                    platformTitle: "मॅपमायशॉप: ऑल-इन-वन बिझनेस पॉवरहाऊस", platformSubtitle: "अनेक साधनांशी झगडणे थांबवा! मॅपमायशॉप तुमच्या स्थानिक व्यवसायाच्या प्रत्येक पैलूचे व्यवस्थापन करण्यासाठी एक एकीकृत प्लॅटफॉर्म प्रदान करते, दैनंदिन ऑपरेशन्सपासून ते धोरणात्मक वाढीपर्यंत.", platformFeature1: "<i class='fas fa-store-alt'></i> डिजिटल स्टोअरफ्रंट आणि ऑनलाइन ऑर्डर", platformFeature2: "<i class='fas fa-users-cog'></i> व्यापक कर्मचारी व्यवस्थापन", platformFeature3: "<i class='fas fa-id-card'></i> व्यावसायिक आय-कार्ड निर्मिती", platformFeature4: "<i class='fas fa-boxes-stacked'></i> स्मार्ट इन्व्हेंटरी नियंत्रण", platformFeature5: "<i class='fas fa-chart-pie'></i> अंतर्ज्ञानी विक्री विश्लेषण", platformFeature6: "<i class='fas fa-bullhorn'></i> ग्राहक प्रतिबद्धता साधने", platformFreeTrial: "<i class='fas fa-gift'></i> मोफत १-महिन्याचा ट्रायल सक्रिय! मॅपमायशॉपच्या पूर्ण शक्तीचा अनुभव घ्या.",
-                    trustedTitle: "व्यवसायाच्या पुढील लाटेला सामर्थ्य देत आहे", trustedSubtitle: "आम्ही उद्योग नेते आणि महत्त्वाकांक्षी स्टार्टअप्ससाठी तांत्रिक पाया तयार करत आहोत.", trustedJoiningSoon: "आणि बरेच काही लवकरच सामील होत आहे...",
-                    featuresTitle: "तुमच्या दुकानात क्रांती घडवणारी मुख्य वैशिष्ट्ये", featuresSubtitle: "तुमचे काम सोपे करण्यासाठी, ग्राहकांना गुंतवून ठेवण्यासाठी आणि यश मिळवण्यासाठी डिझाइन केलेली साधने एक्सप्लोर करा.", feature1Title: "व्यापक कर्मचारी व्यवस्थापन", feature1Desc: "कर्मचाऱ्यांचे वेळापत्रक सहजतेने व्यवस्थापित करा, उपस्थितीचा मागोवा घ्या, कार्ये नियुक्त करा आणि व्यावसायिक आय-कार्ड तयार करा, सर्व एकाच ठिकाणी.", feature2Title: "डिजिटल स्टोअरफ्रंट आणि ऑनलाइन उपस्थिती", feature2Desc: "तुमचे दुकान त्वरित ऑनलाइन न्या. उत्पादने प्रदर्शित करा, ऑर्डर स्वीकारा आणि तुमच्या स्वतःच्या डिजिटल उपस्थितीसह व्यापक ग्राहक वर्गापर्यंत पोहोचा.", feature3Title: "स्वयंचलित बिलिंग", feature3Desc: "डिजिटल बीजक स्वयंचलितपणे तयार करा आणि ते थेट ग्राहकांना ईमेल किंवा व्हाट्सएपद्वारे पाठवा, ज्यामुळे तुमची चेकआउट प्रक्रिया सुव्यवस्थित होते.", feature4Title: "बुद्धिमान मॅपिंग आणि शोध", feature4Desc: "तुमची दृश्यमानता वाढवा. नवीन ग्राहकांना तुमचे दुकान शोधण्यात मदत करा आणि आमच्या प्रगत मॅपिंग सोल्यूशन्ससह तुमचा बाजार समजून घ्या.",
-                    appPreviewTitle: "मॅपमायशॉप कृतीत पहा", appPreviewSubtitle: "आमचे ॲप व्यवसाय व्यवस्थापन कसे सोपे करते आणि ग्राहक संबंध कसे वाढवते याची एक झलक मिळवा.", appPreviewMobileButton: "<i class='fas fa-file-pdf'></i> पूर्वावलोकन पहा",
-                    reviewsTitle: "आमच्या वापरकर्त्यांकडून ऐका", reviewsSubtitle: "पहा मॅपमायशॉप तुमच्यासारख्या स्थानिक व्यवसायांना कसे बदलत आहे.", review1Text: "\"मॅपमायशॉप वापरून कर्मचारी व्यवस्थापन खूप सोपे झाले आहे. कामाचे तास आणि कामगिरीचा मागोवा घेणे आता सोपे झाले आहे!\"", review1Author: "- एक आनंदी दुकान मालक", review2Text: "\"मॅपमाईशॉपचे स्टॉक व्यवस्थापन आश्चर्यकारकपणे अंतर्ज्ञानी आहे. आमच्या शेल्फवर काय आहे आणि काय पुन्हा ऑर्डर करण्याची आवश्यकता आहे हे आम्हाला नेहमी माहित असते.\"", review2Author: "- रिटेल स्टोअर व्यवस्थापक",
-                    aboutTitle: "मॅपमायशॉप बद्दल", aboutP1: "मॅपमायशॉपमध्ये, आम्ही स्थानिक व्यवसायांना आजच्या स्पर्धात्मक बाजारपेठेत भरभराट होण्यासाठी आवश्यक असलेल्या परिवर्तनकारी तंत्रज्ञानासह सक्षम करण्यासाठी अत्यंत समर्पित आहोत. आम्ही तुमच्या अद्वितीय ऑपरेशनल आव्हानांवर मात करण्यासाठी सर्वसमावेशक, अत्याधुनिक तांत्रिक उपाय प्रदान करतो—बुद्धिमान इन्व्हेंटरी आणि कर्मचारी व्यवस्थापनापासून ते डायनॅमिक ग्राहक प्रतिबद्धता आणि अंतर्दृष्टीपूर्ण बाजार विश्लेषणापर्यंत.", aboutP2: "आमचे मुख्य ध्येय अत्याधुनिक तंत्रज्ञान सुलभ, परवडणारे आणि वापरण्यास अत्यंत सोपे बनवणे आहे. आम्ही तुम्हाला ऑपरेशन्स सुव्यवस्थित करण्यात, तुमची दृश्यमानता वाढवण्यात, वाढीस चालना देण्यासाठी आणि शेवटी, अधिक यशस्वी आणि लवचिक व्यवसाय तयार करण्यात मदत करण्यासाठी येथे आहोत.", aboutFounderTitle: "आमचे नेतृत्व", aboutFounderName: "बाळकृष्ण तपासे", aboutFounderRole: "संस्थापक आणि सीईओ, मॅपमायशॉप", aboutContactUs: "<i class='fas fa-map-marker-alt'></i> आमच्याशी संपर्क साधा / आम्हाला भेट द्या:",
-                    teamTitle: "आमच्या कोर टीमला भेटा", teamMemberGauravName: "गौरव", teamMemberGauravRole: "विपणन प्रमुख", teamMemberRushikeshName: "ऋषिकेश जाधव", teamMemberRushikeshRole: "बॅकएंड डेव्हलपर", teamMemberAbhayName: "अभय पाटील", teamMemberAbhayRole: "वेब डेव्हलपर", teamComingSoon: "आणि बरेच अद्भुत टीम सदस्य लवकरच सामील होत आहेत...",
-                    ctaTitle: "तुमचा व्यवसाय बदलण्यासाठी तयार आहात?", ctaSubtitle: "मॅपमायशॉपच्या ऑल-इन-वन सोल्यूशनसह भरभराट करणाऱ्या हजारो व्यवसायांमध्ये सामील व्हा. ॲप डाउनलोड करा आणि तुमच्या यशाचा प्रवास सुरू करा.", ctaFreeTrialText: "<i class='fas fa-check-circle'></i> तुमचा मोफत १-महिन्याचा ट्रायल वाट पाहत आहे!", ctaDownloadApp: "<i class='fas fa-rocket'></i> आत्ताच ॲप मिळवा",
-                    contactTitle: "संपर्कात रहा", contactSubtitle: "प्रश्न आहेत किंवा अधिक जाणून घेऊ इच्छिता? आम्ही मदतीसाठी येथे आहोत!", contactEmail: "<i class='fas fa-envelope'></i>ईमेल: <a href=\"mailto:mapmyshop2024@gmail.com\">mapmyshop2024@gmail.com</a>", contactPhone: "<i class='fas fa-phone-alt'></i>फोन नंबर: <a href=\"tel:+919529338232\">+91 9529338232</a>", contactAddressInfo: "<i class='fas fa-building'></i>किंवा आमच्याबद्दल विभागात नमूद केलेल्या पत्त्यावर आम्हाला भेट द्या.", contactQueryMessage: "कोणताही प्रश्न विचारण्यास मोकळे राहा, आम्ही तुमची सेवा करण्यास आनंदी असू.",
-                    connectTitle: "आमच्याशी कनेक्ट व्हा", connectYoutube: "यूट्यूब", connectLinkedin: "लिंक्डइन", connectInstagram: "इंस्टाग्राम (लवकरच येत आहे)",
-                    footerCopyright: "© 2024 मॅपमायशॉप इं. सर्व हक्क राखीव.", footerPrivacy: "गोपनीयता धोरण", footerTerms: "सेवा अटी"
+            // --- PRODUCTION-LEVEL PAYMENT FLOW SCRIPT ---
+            
+            // Configuration - TODO: FILL THESE OUT
+            const RAZORPAY_KEY_ID = 'YOUR_RAZORPAY_KEY_ID'; // Use your LIVE key
+            const CREATE_ORDER_URL = 'YOUR_DEPLOYED_CLOUD_FUNCTION_URL/createOrder';
+
+            // DOM Element Selection
+            const ctaTrigger = document.getElementById('vendor-cta-trigger');
+            const modalOverlay = document.getElementById('vendor-login-modal');
+            const closeBtn = document.getElementById('vendor-modal-close-btn');
+            const loginForm = document.getElementById('vendor-login-form');
+            const submitBtn = document.getElementById('login-submit-btn');
+            const emailInput = document.getElementById('vendor-email');
+            const passwordInput = document.getElementById('vendor-password');
+            const loaderContainer = document.getElementById('modal-loader-container');
+            const loaderText = document.getElementById('modal-loader-text');
+            const messageBox = document.getElementById('modal-message-box');
+            const modalSubtitle = document.getElementById('modal-subtitle');
+            
+            let currentUser = null;
+
+            // UI State Management Function
+            const setUIState = (state, message = '') => {
+                loginForm.style.display = 'none';
+                loaderContainer.style.display = 'none';
+                messageBox.style.display = 'none';
+                submitBtn.disabled = false;
+
+                switch (state) {
+                    case 'initial':
+                        loginForm.style.display = 'block';
+                        break;
+                    case 'loading':
+                        loaderContainer.style.display = 'block';
+                        loaderText.textContent = message || 'Processing...';
+                        submitBtn.disabled = true;
+                        break;
+                    case 'error':
+                        loginForm.style.display = 'block';
+                        messageBox.style.display = 'block';
+                        messageBox.className = 'modal-message error';
+                        messageBox.textContent = message;
+                        break;
+                    case 'success':
+                        messageBox.style.display = 'block';
+                        messageBox.className = 'modal-message success';
+                        messageBox.textContent = message;
+                        break;
                 }
             };
-            
-            const languageSelectors = document.querySelectorAll('.language-selector a');
-            const translatableElements = document.querySelectorAll('[data-lang-key]');
-            
-            function changeLanguage(lang) {
-                Object.assign(currentTranslations, translations[lang] || translations.en);
-                translatableElements.forEach(el => {
-                    const key = el.getAttribute('data-lang-key');
-                    if (currentTranslations[key]) { el.innerHTML = currentTranslations[key]; } 
-                });
-                languageSelectors.forEach(selector => {
-                    selector.classList.remove('active');
-                    if (selector.getAttribute('data-lang') === lang) { selector.classList.add('active'); }
-                });
-                localStorage.setItem('mapMyShopLang', lang);
-                document.documentElement.lang = lang;
-                if (mobileNavTrigger) {
-                    mobileNavTrigger.innerHTML = mainNav.classList.contains('active') 
-                        ? currentTranslations.navCloseButton 
-                        : currentTranslations.navMenuButton;
+
+            // Modal Control
+            const openModal = () => {
+                setUIState('initial');
+                loginForm.reset();
+                modalSubtitle.textContent = 'Login to your vendor account to proceed with the payment.';
+                modalOverlay.classList.add('visible');
+                document.body.classList.add('modal-open');
+            };
+
+            const closeModal = () => {
+                modalOverlay.classList.remove('visible');
+                document.body.classList.remove('modal-open');
+            };
+
+            ctaTrigger.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', (e) => e.target === modalOverlay && closeModal());
+
+            // Main Logic Flow
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                setUIState('loading', 'Authenticating...');
+                try {
+                    const userCredential = await auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value);
+                    currentUser = userCredential.user;
+                    await fetchVendorAndInitiatePayment(currentUser);
+                } catch (error) {
+                    console.error("Authentication Error:", error);
+                    setUIState('error', `Login Failed: ${error.code.replace('auth/', '').replace(/-/g, ' ')}.`);
+                }
+            });
+
+            async function fetchVendorAndInitiatePayment(user) {
+                setUIState('loading', 'Fetching your account details...');
+                try {
+                    const vendorDoc = await db.collection('vendors').doc(user.uid).get();
+                    if (!vendorDoc.exists) throw new Error("No vendor account found for this user.");
+                    
+                    const vendorData = vendorDoc.data();
+                    if (vendorData.StoreIsLive === true) {
+                        setUIState('success', 'Your subscription is already active!');
+                        setTimeout(closeModal, 3000);
+                        return;
+                    }
+                    if (!vendorData.vendorAmount || !vendorData.phone || !vendorData.email) {
+                        throw new Error("Your account is incomplete. Please contact support.");
+                    }
+
+                    await createOrderAndConfirmPayment(vendorData);
+                } catch (error) {
+                    console.error("Fetch/Payment Error:", error);
+                    setUIState('error', `Error: ${error.message}`);
                 }
             }
-            languageSelectors.forEach(selector => {
-                selector.addEventListener('click', (e) => { e.preventDefault(); changeLanguage(selector.getAttribute('data-lang')); });
-            });
-            const storedLang = localStorage.getItem('mapMyShopLang') || 'en';
-            changeLanguage(storedLang);
+
+            async function createOrderAndConfirmPayment(vendorData) {
+                setUIState('loading', 'Creating secure payment order...');
+                try {
+                    const response = await fetch(CREATE_ORDER_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ amount: vendorData.vendorAmount }),
+                    });
+                    const responseData = await response.json();
+                    if (!response.ok) throw new Error(responseData.error || 'Server failed to create order.');
+                    
+                    const { orderId } = responseData;
+
+                    modalSubtitle.textContent = 'Please confirm your payment details.';
+                    setUIState('initial');
+                    
+                    const proceed = confirm(
+                        `Confirm Payment\n\n` +
+                        `Amount: ₹${vendorData.vendorAmount}\n` +
+                        `Order ID: ${orderId}\n\n` +
+                        `Click OK to proceed to the secure payment gateway.`
+                    );
+
+                    if (proceed) {
+                        launchRazorpayCheckout(orderId, vendorData);
+                    } else {
+                        setUIState('error', 'Payment was cancelled by user.');
+                    }
+                } catch (error) {
+                    console.error("Order Creation Error:", error);
+                    setUIState('error', `Failed to create order: ${error.message}`);
+                }
+            }
+
+            function launchRazorpayCheckout(orderId, vendorData) {
+                let paymentSuccess = false;
+                const options = {
+                    key: RAZORPAY_KEY_ID,
+                    amount: vendorData.vendorAmount * 100,
+                    currency: "INR",
+                    name: 'MapMyShop Vendor Subscription',
+                    description: 'Subscription for vendor services',
+                    order_id: orderId,
+                    prefill: {
+                        name: vendorData.name || 'Valued Vendor',
+                        email: vendorData.email,
+                        contact: vendorData.phone,
+                    },
+                    theme: { color: "#10112A" },
+                    handler: async (response) => {
+                        paymentSuccess = true;
+                        setUIState('loading', 'Verifying payment and activating subscription...');
+                        try {
+                            await db.collection('vendors').doc(currentUser.uid).update({
+                                StoreIsLive: true,
+                                paymentId: response.razorpay_payment_id,
+                                orderId: response.razorpay_order_id,
+                                paymentSignature: response.razorpay_signature,
+                                lastPaymentDate: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                            setUIState('success', 'Subscription Activated! Welcome to the family.');
+                            setTimeout(closeModal, 4000);
+                        } catch (error) {
+                            console.error("Firestore Update Error:", error);
+                            setUIState('error', `Payment successful, but failed to update status. Please contact support with Order ID: ${response.razorpay_order_id}`);
+                        }
+                    },
+                    modal: {
+                        ondismiss: () => {
+                            if (!paymentSuccess) setUIState('error', 'Payment was not completed.');
+                        }
+                    }
+                };
+                
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', (response) => {
+                    console.error("Razorpay Payment Failed:", response.error);
+                    setUIState('error', `Payment Failed: ${response.error.description}`);
+                });
+                rzp.open();
+            }
         });
     </script>
 </body>
