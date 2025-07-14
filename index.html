@@ -4,6 +4,7 @@
     <meta name="google-site-verification" content="0C3O3UyAhFYqCXfdf3tAe5tOYdOG58IcIocnKWKH3Sc" />
     <meta charset="UTF-8">
     <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="MapMyShop - The ultimate all-in-one solution to digitize your shop, streamline operations, and boost your growth worldwide.">
 
     <!-- iOS meta tags & icons -->
@@ -398,7 +399,7 @@
             color: var(--text-light);
         }
 
-        /* [NEW] VOICE ASSISTANT BUTTON */
+        /* VOICE ASSISTANT BUTTON */
         #voice-assistant-btn {
             position: fixed;
             bottom: 30px;
@@ -431,7 +432,7 @@
             100% { transform: scale(1); box-shadow: var(--accent-glow); }
         }
 
-        /* [NEW] VOICE TRANSCRIPT UI */
+        /* VOICE TRANSCRIPT UI */
         #voice-transcript-container {
             position: fixed;
             bottom: 110px; /* Position above the voice button */
@@ -502,7 +503,8 @@
             body { cursor: auto; } 
             #cursor-dot, #cursor-glow { display: none; } 
             .hero { min-height: 85vh; padding: 100px 20px; }
-            .hero h1 { font-size: clamp(2.2em, 9vw, 3em); }
+            .hero h1 { font-size: clamp(2.4em, 10vw, 3.2em); }
+            .hero p.hero-main-subtitle { font-size: clamp(1.1em, 4vw, 1.3em); }
             .mobile-nav-trigger { display: block; }
             .main-nav > ul { display: none; }
             .main-nav { position: fixed; top: 0; right: -100%; width: 80%; max-width: 320px; height: 100vh; background: rgba(16, 17, 42, 0.85); backdrop-filter: blur(15px); padding: 100px 20px 20px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); transition: right 0.5s var(--easing-curve); } 
@@ -512,11 +514,14 @@
             .main-nav ul li a { font-size: 1.3em; display: block; padding: 10px 15px; } 
             .main-nav ul li a::after { display: none; } 
             .main-nav ul li a:hover, .main-nav ul li a.active { color: var(--primary-accent); background: rgba(0, 245, 255, 0.1); border-radius: 8px; } 
-            .section { padding: 80px 0; } .section-subtitle { margin-bottom: 60px; } 
+            .section { padding: 80px 0; } 
+            .section-subtitle { margin-bottom: 60px; line-height: 1.6; } 
             .testimonials-grid { grid-template-columns: 1fr; } 
             .futuristic-card, .testimonial-card, .team-card { padding: 30px; } 
             .globe-container { max-width: 300px; }
-            .logo-wall { gap: 40px; } .logo-item { height: 40px; } .logo-item .joining-soon { font-size: 1em; padding: 10px 20px; }
+            .logo-wall { gap: 40px; } 
+            .logo-item { height: 45px; } 
+            .logo-item .joining-soon { font-size: 1em; padding: 10px 20px; }
             .all-in-one-platform .platform-content ul { gap: 15px; }
             #app-preview .pdf-embed-container { display: none; }
             #app-preview .mobile-pdf-viewer { display: inline-flex; }
@@ -526,26 +531,36 @@
             #voice-assistant-btn { width: 50px; height: 50px; font-size: 1.5em; left: 20px; bottom: 20px; }
             #voice-transcript-container { bottom: 90px; padding: 20px; }
         }
+        
         @media (max-width: 480px) { 
             .logo img { height: 45px; } 
-            .btn { padding: 14px 30px; font-size: 1em; } .google-play-badge { height: 55px; } 
-            .section { padding: 60px 0; }
-            .section-title { font-size: 2em; }
-            .section-subtitle { font-size: 1em; margin-bottom: 40px; }
-            .hero { min-height: auto; padding-top: 80px; padding-bottom: 80px; }
-            .hero h1 { font-size: 2.2em; }
+            .btn { padding: 15px 32px; font-size: 1em; } 
+            .google-play-badge { height: 60px; } 
+            .btn-group { gap: 25px; }
+            .section { padding: 70px 0; }
+            .section-title { font-size: 2.2em; }
+            .section-subtitle { font-size: 1.05em; margin-bottom: 50px; }
+            .hero { min-height: auto; padding: 90px 15px 80px 15px; }
+            .hero h1 { font-size: 2.3em; line-height: 1.3; }
             .futuristic-card, .testimonial-card, .team-card { padding: 25px; }
-            .all-in-one-platform .platform-content ul li { font-size: 0.9em; padding: 12px 20px; }
-            .free-trial-banner { font-size: 1.1em; padding: 20px; }
-            #contact .contact-info p { flex-direction: column; gap: 8px; font-size: 1em; } 
-            .logo-wall { gap: 30px; } .logo-item { height: 35px; }
+            .all-in-one-platform .platform-content ul li { font-size: 1em; padding: 14px 22px; }
+            .free-trial-banner { font-size: 1.2em; padding: 20px; }
+            #contact .contact-info { padding: 30px 20px; }
+            #contact .contact-info p { flex-direction: column; gap: 10px; font-size: 1.05em; } 
+            .logo-wall { gap: 30px 40px; } 
+            .logo-item { height: 38px; }
             .logo-item .joining-soon { width: 100%; justify-content: center; }
             .cta-section .container-inner { padding: 60px 25px; }
             .globe-container { max-width: 250px; }
             .team-grid { grid-template-columns: 1fr; }
-            .swiper-slide { width: 280px; height: 380px; }
+            .swiper-slide { width: 85%; height: auto; aspect-ratio: 3 / 4; }
+            .swiper-slide .feature-title { font-size: 1.15em; padding: 20px; }
         }
-        @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) { .main-header, .main-nav, .futuristic-card, #vendor-modal, .swiper-slide { background: var(--secondary-bg); } .main-nav { background: #10112A; } }
+
+        @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) { 
+            .main-header, .main-nav, .futuristic-card, #vendor-modal, .swiper-slide { background: var(--secondary-bg); } 
+            .main-nav { background: #10112A; } 
+        }
     </style>
 </head>
 <body class="loading">
