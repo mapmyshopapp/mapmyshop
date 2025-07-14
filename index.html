@@ -231,7 +231,31 @@
         #contact .contact-info { text-align: center; max-width: 750px; margin: 0 auto; padding: 40px 50px; } #contact .contact-info p { margin-bottom: 20px; font-size: 1.15em; line-height: 1.8; display: flex; align-items: center; justify-content: center; gap: 15px; } #contact .contact-info p i { color: var(--primary-accent); font-size: 1.4em; } #contact .contact-info a { color: var(--primary-accent); text-decoration: none; transition: color var(--transition-speed), text-shadow var(--transition-speed); font-weight: 500; } #contact .contact-info a:hover { color: var(--text-light); text-decoration: none; text-shadow: 0 0 8px var(--primary-accent); }
         .cta-section .container-inner { padding: 80px 50px; text-align: center; } .cta-section h2 { font-size: clamp(2.2em, 4.5vw, 3em); margin-bottom: 20px; color: var(--text-light); font-weight: 700;} .cta-section p { font-size: 1.2em; color: var(--text-medium); margin-bottom: 35px; max-width: 700px; margin-left: auto; margin-right: auto; } .cta-free-trial-text { font-size: 1.4em !important; color: var(--success-accent) !important; font-weight: 600; margin-bottom: 35px !important; display: flex; align-items: center; justify-content: center; gap: 10px; text-shadow: 0 0 10px rgba(40, 167, 69, 0.5); }
         .connect-us { padding-bottom: 80px; } .social-links { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; } .social-item { text-align: center; } .social-icon-wrapper { position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; } .social-icon-wrapper a { color: var(--text-medium); font-size: 1.8em; text-decoration: none; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--glass-border); transition: all var(--transition-speed) var(--easing-curve); z-index: 2; } .social-icon-wrapper a:hover { color: var(--text-light); background: rgba(16, 17, 42, 0.9); transform: scale(1.1); } .social-icon-wrapper::before { content: ''; position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; transform: translate(-50%, -50%); border-radius: 50%; background: var(--accent-gradient); z-index: 1; transition: all 0.5s var(--easing-curve); clip-path: circle(0% at 50% 50%); } .social-icon-wrapper:hover::before { clip-path: circle(70.7% at 50% 50%); } .social-icon-wrapper:hover a { box-shadow: var(--accent-glow); } .social-label { font-size: 0.8em; color: var(--text-medium); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-        .main-footer { background: #060714; color: var(--text-medium); text-align: center; padding: 50px 0; border-top: 1px solid var(--glass-border); position: relative; z-index: 5; } .main-footer a { color: var(--primary-accent); text-decoration: none; transition: color var(--transition-speed); } .main-footer a:hover { color: var(--text-light); } .scroll-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--accent-gradient); color: var(--text-light); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5em; text-decoration: none; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all var(--transition-speed) var(--easing-curve); z-index: 999; box-shadow: var(--shadow-md); } .scroll-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); } .scroll-to-top:hover { transform: scale(1.1) rotate(5deg); box-shadow: var(--accent-glow); }
+        .main-footer { background: #060714; color: var(--text-medium); text-align: center; padding: 50px 0; border-top: 1px solid var(--glass-border); position: relative; z-index: 5; } .main-footer a { color: var(--primary-accent); text-decoration: none; transition: color var(--transition-speed); } .main-footer a:hover { color: var(--text-light); } 
+        .scroll-to-top { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background: var(--accent-gradient); 
+            color: var(--text-light); 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5em; 
+            text-decoration: none; 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(20px); 
+            transition: all var(--transition-speed) var(--easing-curve); 
+            z-index: 999; 
+            box-shadow: var(--shadow-md); 
+            /* -- FIX: Ensure Font Awesome solid icons render correctly -- */
+            font-weight: 900; 
+        } 
+        .scroll-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); } .scroll-to-top:hover { transform: scale(1.1) rotate(5deg); box-shadow: var(--accent-glow); }
         
         /* --- VENDOR FEATURES SWIPER SECTION --- */
         #vendor-features {
@@ -565,6 +589,9 @@
 </head>
 <body class="loading">
     
+    <!-- Rest of your HTML body from the original code goes here -->
+    <!-- I am including the full body for completeness -->
+
     <div id="preloader">
         <div class="preloader-bg-slider">
              <div class="preloader-slide" style="background-image: url('https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=1920&q=80')"><h2>India</h2></div>
@@ -1028,7 +1055,7 @@
                 selector.addEventListener('click', (e) => { e.preventDefault(); changeLanguage(selector.getAttribute('data-lang')); });
             });
             
-            // --- VOICE ASSISTANT LOGIC ---
+            // --- VOICE ASSISTANT LOGIC (FIXED) ---
             const voiceAssistantBtn = document.getElementById('voice-assistant-btn');
             const transcriptContainer = document.getElementById('voice-transcript-container');
             const spokenTextSpan = document.getElementById('spoken-text');
@@ -1036,19 +1063,26 @@
 
             if ('speechSynthesis' in window) {
                 const synth = window.speechSynthesis;
-                let voices = [];
 
-                function populateVoiceList() {
-                    voices = synth.getVoices();
-                }
-                populateVoiceList();
-                if (speechSynthesis.onvoiceschanged !== undefined) {
-                    speechSynthesis.onvoiceschanged = populateVoiceList;
-                }
-
+                // The onvoiceschanged event is crucial, especially for mobile,
+                // but we will also get voices on click as a robust fallback.
+                synth.onvoiceschanged = () => {
+                    // Voices are loaded, no action needed here, but the event is important to listen to.
+                    console.log("Speech synthesis voices loaded.");
+                };
+                
                 voiceAssistantBtn.addEventListener('click', () => {
                     if (synth.speaking) {
                         synth.cancel(); // This will trigger the onend event
+                        return;
+                    }
+
+                    // *** FIX: Get voices right before speaking to ensure they are loaded ***
+                    let voices = synth.getVoices();
+                    if (voices.length === 0) {
+                        console.error("No speech synthesis voices available.");
+                        // Optionally alert the user
+                        alert("Sorry, the voice assistant is not available on your browser right now.");
                         return;
                     }
                     
@@ -1084,8 +1118,10 @@
                     };
 
                     utterance.onboundary = (e) => {
-                        spokenTextSpan.textContent = fullScript.substring(0, e.charIndex);
-                        remainingTextSpan.textContent = fullScript.substring(e.charIndex);
+                        if(spokenTextSpan && remainingTextSpan){
+                            spokenTextSpan.textContent = fullScript.substring(0, e.charIndex);
+                            remainingTextSpan.textContent = fullScript.substring(e.charIndex);
+                        }
                     };
                     
                     utterance.onend = () => {
@@ -1096,7 +1132,8 @@
                         }, 4000);
                     };
 
-                    utterance.onerror = () => {
+                    utterance.onerror = (e) => {
+                         console.error("Speech Synthesis Error", e);
                          voiceAssistantBtn.classList.remove('speaking');
                          transcriptContainer.classList.remove('visible');
                     };
