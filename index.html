@@ -47,7 +47,7 @@
 
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden; /* CRITICAL: Prevents horizontal scroll on the entire page */
+            overflow-x: hidden;
         }
 
         body {
@@ -55,27 +55,26 @@
             background-color: var(--primary-bg);
             color: var(--text-light);
             line-height: 1.7;
-            overflow-x: hidden; /* CRITICAL: Redundant but safe guard for the body */
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            cursor: auto; /* Default cursor for mobile */
+            cursor: auto;
             position: relative;
         }
 
         body.loading, body.modal-open, body.nav-active {
-            overflow: hidden; /* Prevent scrolling when modals or nav are open */
+            overflow: hidden;
         }
 
         /* --- 2. DECORATIVE BACKGROUNDS & CURSOR --- */
         .animated-bg, body::before {
-            display: none; /* Hide complex animations on mobile by default */
+            display: none;
         }
 
         #cursor-dot, #cursor-glow {
-            display: none; /* Hide custom cursor on touch devices */
+            display: none;
         }
 
-        /* Enable decorative elements on larger screens (desktops) */
         @media (min-width: 992px) {
             body {
                 cursor: none;
@@ -127,14 +126,14 @@
         }
 
         .section {
-            padding: clamp(70px, 15vw, 80px) 0; /* Fluid padding */
+            padding: clamp(70px, 15vw, 80px) 0;
             position: relative;
             background-color: transparent;
             z-index: 5;
         }
 
         .section-title {
-            font-size: clamp(2.2em, 8vw, 2.8em); /* Fluid font size */
+            font-size: clamp(2.2em, 8vw, 2.8em);
             text-align: center; margin-bottom: 20px; color: var(--text-light);
             font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.3); padding-bottom: 20px;
             position: relative;
@@ -150,7 +149,7 @@
         }
 
         .section-subtitle {
-            text-align: center; font-size: clamp(1em, 4vw, 1.15em); /* Fluid font size */
+            text-align: center; font-size: clamp(1em, 4vw, 1.15em);
             margin-bottom: 50px; color: var(--text-medium); max-width: 800px;
             margin-left: auto; margin-right: auto; line-height: 1.6;
         }
@@ -185,7 +184,7 @@
 
         /* Mobile Navigation: Hamburger Trigger */
         .mobile-nav-trigger {
-            display: flex; /* Visible by default on mobile */
+            display: flex;
             align-items: center; justify-content: center; background: transparent;
             border: 1px solid var(--glass-border); color: var(--text-light);
             width: 50px; height: 40px; border-radius: 8px; cursor: pointer;
@@ -210,12 +209,12 @@
             position: fixed; top: 0; right: 0; width: 80%; max-width: 320px; height: 100vh;
             background: rgba(16, 17, 42, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             padding: 120px 30px 40px; box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            transform: translateX(100%); /* Start off-screen */
+            transform: translateX(100%);
             transition: transform 0.5s var(--easing-curve);
             z-index: 1001; visibility: hidden;
         }
         .main-nav.active {
-            transform: translateX(0); /* Slide in */
+            transform: translateX(0);
             visibility: visible;
         }
         .main-nav ul { list-style: none; display: flex; flex-direction: column; width: 100%; align-items: flex-start; }
@@ -355,13 +354,80 @@
         @media (min-width: 768px) { .globe-container { max-width: 350px; } }
         @media (min-width: 992px) { .globe-container { max-width: 450px; } }
 
-        /* Trusted By */
-        .logo-wall { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 40px; margin-top: 40px; }
-        .logo-item { height: 40px; flex-shrink: 0; }
-        .logo-item img { height: 100%; width: auto; max-width: 150px; filter: brightness(0) invert(1) grayscale(1) opacity(0.6); transition: filter var(--transition-speed), transform var(--transition-speed); }
-        .logo-item:hover img { filter: brightness(0) invert(1) grayscale(0) opacity(1) drop-shadow(0 0 5px var(--text-medium)); transform: scale(1.1); }
-        .logo-item .joining-soon { font-size: 1em; font-weight: 500; color: var(--text-medium); border: 1px dashed var(--glass-border); padding: 10px 20px; border-radius: 10px; height: 100%; display: flex; align-items: center;}
-        @media (min-width: 768px) { .logo-wall { gap: 60px 80px; } .logo-item { height: 50px; } }
+        /* Trusted By - NEW STYLES */
+        .featured-partner {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .partner-title {
+            font-size: 1.2em;
+            color: var(--text-medium);
+            margin-bottom: 25px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .featured-logo-item {
+            display: inline-block;
+            padding: 25px 35px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            transition: all var(--transition-speed) var(--easing-curve);
+            cursor: pointer;
+        }
+        .featured-logo-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), var(--accent-glow);
+        }
+        .featured-logo-item img {
+            height: 70px;
+            max-width: 200px;
+            object-fit: contain;
+        }
+        .featured-logo-item span {
+            display: block;
+            margin-top: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--primary-accent);
+        }
+        .logo-wall {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .logo-item {
+            height: 60px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .logo-item img {
+            height: 100%;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+            filter: none;
+            opacity: 0.8;
+            transition: transform var(--transition-speed), opacity var(--transition-speed), filter var(--transition-speed);
+        }
+        .logo-item:hover img {
+            opacity: 1;
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(234, 235, 255, 0.5));
+        }
+        @media (min-width: 768px) {
+            .logo-wall { gap: 50px 70px; }
+            .logo-item { height: 70px; }
+            .featured-logo-item img { height: 80px; }
+        }
 
         /* All in One Platform */
         .all-in-one-platform .platform-content ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 50px; }
@@ -375,12 +441,12 @@
         @media (min-width: 768px) { .all-in-one-platform .platform-content ul { gap: 20px; } .all-in-one-platform .platform-content ul li { padding: 15px 30px; font-size: 1.1em; } }
 
         /* App Preview */
-        #app-preview .pdf-embed-container { display: none; } /* Hide iframe on mobile by default */
-        #app-preview .mobile-pdf-viewer { display: inline-flex; margin-top: 30px; } /* Show button on mobile */
+        #app-preview .pdf-embed-container { display: none; }
+        #app-preview .mobile-pdf-viewer { display: inline-flex; margin-top: 30px; }
         #app-preview .container { text-align: center; }
         @media (min-width: 768px) {
-            #app-preview .pdf-embed-container { display: block; } /* Show iframe on tablet+ */
-            #app-preview .mobile-pdf-viewer { display: none; } /* Hide button on tablet+ */
+            #app-preview .pdf-embed-container { display: block; }
+            #app-preview .mobile-pdf-viewer { display: none; }
             .pdf-embed-container iframe { width: 100%; height: 65vh; max-height: 750px; border: none; border-radius: calc(var(--border-radius) - 10px); }
             .pdf-embed-container.futuristic-card:hover { transform: translateY(0); }
         }
@@ -406,7 +472,6 @@
         .team-card .team-role { font-size: 1em; color: var(--text-medium); font-weight: 500; }
         .team-card .team-coming-soon { font-style: italic; color: var(--text-medium); font-size: 1.1em; padding: 20px 0; display: flex; align-items: center; justify-content: center; height: 100%; }
         @media (min-width: 992px) { .team-grid { grid-template-columns: repeat(4, 1fr); } }
-
 
         /* Contact & CTA */
         #contact .contact-info { text-align: center; max-width: 750px; margin: 0 auto; padding: 30px 20px; }
@@ -488,7 +553,7 @@
         .swiper-slide .feature-title { font-size: 1.15em; font-weight: 600; color: var(--text-light); padding: 20px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
         .swiper-pagination .swiper-pagination-bullet { background-color: var(--primary-accent); width: 12px; height: 12px; opacity: 0.5; transition: all var(--transition-speed); }
         .swiper-pagination .swiper-pagination-bullet-active { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px var(--primary-accent); }
-        .swiper-button-next, .swiper-button-prev { color: var(--primary-accent); transition: transform 0.2s, text-shadow 0.2s; display: none; } /* Hide by default */
+        .swiper-button-next, .swiper-button-prev { color: var(--primary-accent); transition: transform 0.2s, text-shadow 0.2s; display: none; }
         .swiper-button-next:hover, .swiper-button-prev:hover { transform: scale(1.2); text-shadow: 0 0 10px var(--primary-accent); }
         @media (min-width: 768px) {
             .swiper-slide { width: 340px; height: 420px; }
@@ -538,31 +603,85 @@
         #confetti-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10001; }
         #flower-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 10002; }
         .petal { position: absolute; top: -50px; width: 40px; height: 40px; background-size: contain; background-repeat: no-repeat; opacity: 0; }
-        #welcome-package { position: fixed; top: 50%; left: 50%; z-index: 10003; pointer-events: none; opacity: 0; transform: translate(-50%, -150%); transition: opacity 1.2s ease-in-out, transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        #welcome-package.visible { opacity: 1; transform: translate(-50%, -50%); }
-        #welcome-bouquet { position: relative; width: 220px; height: 180px; }
-        .bouquet-flower { position: absolute; width: 80px; height: 80px; background-size: contain; background-position: center; background-repeat: no-repeat; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
-        .welcome-text { font-size: clamp(1.4em, 4vw, 1.8em); font-weight: 600; color: var(--text-light); padding: 15px 30px; border-radius: 12px; background: rgba(16, 17, 42, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--glass-border); text-align: center; text-shadow: 0 2px 5px rgba(0,0,0,0.4); }
-        .welcome-logo { height: 40px; width: auto; opacity: 0.9; filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5)); }
-        @media (min-width: 768px) { #welcome-bouquet { width: 300px; height: 250px; } .bouquet-flower { width: 100px; height: 100px; } .welcome-logo { height: 50px; } }
+
+        /* Lightbox (Image Popup) */
+        #lightbox-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 11, 30, 0.85);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 10001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s var(--easing-curve), visibility 0.4s;
+        }
+        #lightbox-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            transform: scale(0.9);
+            transition: transform 0.4s var(--easing-curve);
+        }
+        #lightbox-modal.visible #lightbox-content {
+            transform: scale(1);
+        }
+        #lightbox-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            font-size: 2.5em;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: transform 0.3s, color 0.3s;
+            line-height: 1;
+        }
+        .lightbox-close:hover {
+            transform: scale(1.2);
+            color: var(--primary-accent);
+        }
+        @media (max-width: 768px) {
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+                background: rgba(0,0,0,0.4);
+                width: 40px;
+                height: 40px;
+                font-size: 1.5em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+            }
+        }
 
         /* Fallback for browsers that don't support backdrop-filter */
         @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-            .main-header, .main-nav, .futuristic-card, #vendor-modal, #calibration-modal, .swiper-slide, #voice-transcript-container, .welcome-text { background: var(--secondary-bg); }
+            .main-header, .main-nav, .futuristic-card, #vendor-modal, #calibration-modal, #lightbox-modal, .swiper-slide, #voice-transcript-container { background: var(--secondary-bg); }
             .main-nav { background: #10112A; }
+            #lightbox-modal { background: rgba(10, 11, 30, 0.95); }
         }
     </style>
 </head>
 <body class="loading">
-
     <canvas id="confetti-canvas"></canvas>
-
     <div id="flower-container"></div>
-    <div id="welcome-package">
-        <div id="welcome-bouquet"></div>
-        <h2 class="welcome-text">The MapMyShop Team Welcomes You!</h2>
-        <img src="https://firebasestorage.googleapis.com/v0/b/bmapmyshop.appspot.com/o/company_logo.png?alt=media&token=0f5fc393-894a-43a3-9bd1-41505a80bf57" class="welcome-logo" alt="MapMyShop Logo">
-    </div>
 
     <div id="preloader">
         <div class="preloader-bg-slider">
@@ -689,13 +808,26 @@
         <section id="trusted-by" class="section" data-aos="fade-up">
             <div class="container">
                 <h2 class="section-title" data-lang-key="trustedTitle">Powering The Next Wave of Business</h2>
-                <p class="section-subtitle" data-aos-delay="100" data-lang-key="trustedSubtitle">We are building the technological foundation for industry leaders and ambitious startups alike.</p>
+                <p class="section-subtitle" data-aos-delay="100" data-lang-key="trustedSubtitle">We are building the technological foundation for industry leaders and ambitious companies alike.</p>
+                
+                <div class="featured-partner" data-aos="fade-up">
+                    <h3 class="partner-title">In Partnership with</h3>
+                    <div class="featured-logo-item lightbox-trigger">
+                        <img src="https://media.licdn.com/dms/image/v2/C5622AQHqwTmCRhnLaw/feedshare-shrink_800/feedshare-shrink_800/0/1662642220770?e=2147483647&v=beta&t=Scc3_IUxmqbRl6mwJ28HPAEMG7OnvEwQbKhvuG1EsOU" alt="Pagariya Auto">
+                        <span>Pagariya Auto</span>
+                    </div>
+                    <h3 class="partner-title">and their network</h3>
+                </div>
+
                 <div class="logo-wall">
-                    <div class="logo-item" data-aos="fade-up" data-aos-delay="200"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMjgxLjIgMjU2TDI1NS41IDI5MS4yTDE0Ni4yIDExOS45SDBMMjU1LjUgNTEyTDUxMiAxMTkuOUgzNjUuOEwyODEuMiAyNTZ6TTE0Ni4yIDBIMzY1LjhMMjU1LjUgMTE5LjlMMTQ2LjIgMHoiLz48L3N2Zz4=" alt="Tata Group"></div>
-                    <div class="logo-item" data-aos="fade-up" data-aos-delay="300"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDBDNS4zNzMgMCAwIDUuMzczIDAgMTJzNS4zNzMgMTIgMTIgMTIgMTItNS4zNzMgMTItMTJTMTguNjI3IDAgMTIgMHptMy4xNSA4Ljg1bDQuMiA3LjQySDEzLjVsLTEuMjgtMi4yOGgtNC4zMkw2LjY1IDE2LjI3SDIuNDdsNC4yLTcuNDJoMS4yOGwzLjcxIDYuMzZsMy43MS02LjM2aDEuMjh6Ii8+PC9zdmc+" alt="Bajaj"></div>
-                    <div class="logo-item" data-aos="fade-up" data-aos-delay="400"><img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTExLjk5OSAwQzUuMzcyIDAgMCA1LjM3MiAwIDEyYzAgNi42MjcgNS4zNzIgMTIgMTEuOTk5IDEyUzI0IDE4LjYyNyAyNCAxMmMwLTYuNjI4LTUuMzczLTEyLTExLjk5OS0xMiAyLjY1NSAxLjQ0NSAyLjI4IDEuODM4IDIuNDQ1IDUuMzM4LjE0MiAzLjAyMy0xLjEgNS4yMzUtMy43ODIgNi4xMDgtMi4zMi43NDgtMy45NDUtLjA0NS00LjkzNy0xLjgxLS44MDMtMS40MjgtLjI2My0zLjEzMy44OTYtNC4zNjMuOTMyLTEgMi4xOTgtMS41ODIgMy4zNzgtMS41ODJ6bTAgNC44NzNjLTMuOTM3IDAtMy45MzcgNS4yNTYgMCA1LjI1NiAzLjkzOCAwIDMuOTM4LTUuMjU2IDAtNS4yNTZ6Ii8+PC9zdmc+" alt="Hero MotoCorp"></div>
-                    <div class="logo-item" data-aos="fade-up" data-aos-delay="500"><img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIxLjYwMyAwaC0zLjU4NkwxOC4xOCAyNEgyNHpNMTAuODUyIDExLjc0MkwxNS41MTUgMEgyLjM5N2wtNC42NjMgMTEuNzQyIDQuNjYzIDExLjc0MkwxNS41MTUgMjRoMi4zOTd6bS0xMy4wNS0uMDI3TDQuNjY0IDBsNC42NjMgMTEuNzE1TDQuNjYzIDI0eiIvPjwvc3ZnPg==" alt="DMart"></div>
-                    <div class="logo-item" data-aos="fade-up" data-aos-delay="600"><p class="joining-soon" data-lang-key="trustedJoiningSoon">And many more joining soon...</p></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="200"><img src="https://scontent.fnag1-6.fna.fbcdn.net/v/t1.6435-9/41679961_2266967850204296_8744972693658402816_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=SqGHcamTtbMQ7kNvwFS6S5P&_nc_oc=AdkRvc_JyAd9aKduDRlTJmbks7JpImMfpnaEw096yfcs6tPhRxuGN4wIPERoKu11102Gzr6Go4Ac_96J3BGDoAI-&_nc_zt=23&_nc_ht=scontent.fnag1-6.fna&_nc_gid=6dhagvsWkKgOyX7ECMFpJg&oh=00_AfR1ZD7GBw7C130dZIWW-8TuidNlo8KnouIYo5DqNG4ouw&oe=689FC740" alt="Pagariya Auto"></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="250"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGyAHdqd9c_BTp0n979vaLWKkoMG1X4DbtSA&s" alt="Bajaj"></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="300"><img src="https://www.aicl.in/sites/default/files/Image%201.jpg" alt="NEXA"></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="350"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/KTM-Logo.svg/1200px-KTM-Logo.svg.png" alt="KTM"></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="400"><img src="https://cdn.worldvectorlogo.com/logos/maruti-suzuki-logo.svg" alt="Maruti Suzuki"></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="450"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2khi68fEuQUFfJY54JPYeOtmvJDegGIzsFA&s" alt="Bajaj RE"></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="500"><img src="https://getlogo.net/wp-content/uploads/2019/12/ashok-leyland-logo-vector.png" alt="Ashok Leyland"></div>
+                    <div class="logo-item lightbox-trigger" data-aos="fade-up" data-aos-delay="550"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHyCkVhdtrBhYPLCsaXmpqoiRXXd4Kj34-Yg&s" alt="Pagariya Krushi Tech"></div>
                 </div>
             </div>
         </section>
@@ -802,6 +934,13 @@
 
     <!-- UI Elements -->
     <a href="#" class="scroll-to-top" aria-label="Scroll to top"> <i class="fas fa-arrow-up"></i> </a>
+    
+    <div id="lightbox-modal">
+        <div id="lightbox-content">
+            <span class="lightbox-close">&times;</span>
+            <img src="" id="lightbox-img" alt="Partner Logo Preview">
+        </div>
+    </div>
 
     <div id="vendor-modal">
         <div class="modal-content">
@@ -839,16 +978,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             const body = document.body;
 
-            // --- AOS (Animate on Scroll) Initialization ---
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50,
                 easing: 'ease-out-cubic',
-                disable: 'phone' // CRITICAL: Disables animations on phone-sized devices for performance
+                disable: 'phone'
             });
 
-            // --- Mobile Navigation Logic ---
             const mobileNavTrigger = document.getElementById('mobile-nav-trigger');
             const mainNav = document.getElementById('main-nav');
             if (mobileNavTrigger && mainNav) {
@@ -857,12 +994,10 @@
                     body.classList.toggle('nav-active', isNavActive);
                     mobileNavTrigger.setAttribute('aria-expanded', isNavActive);
                 });
-
-                // Close nav when a link is clicked
                 mainNav.querySelectorAll('a[href^="#"]').forEach(link => {
                     link.addEventListener('click', () => {
                         if (mainNav.classList.contains('active')) {
-                           setTimeout(() => { // Timeout allows scroll to start before nav is fully hidden
+                           setTimeout(() => {
                                 mainNav.classList.remove('active');
                                 body.classList.remove('nav-active');
                                 mobileNavTrigger.setAttribute('aria-expanded', 'false');
@@ -871,67 +1006,69 @@
                     });
                 });
             }
+            
+            // --- Welcome Animation & Preloader Logic ---
+            const confettiCanvas = document.getElementById('confetti-canvas');
+            const myConfetti = confetti.create(confettiCanvas, { resize: true, useWorker: true });
+            const preloader = document.getElementById('preloader');
 
-            // --- [NEW] WELCOME ANIMATION ASSETS ---
             const flowerSVGs = [
                 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImE0IiBjeD0iMC41IiBjeT0iMC41IiByPSIwLjUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGRkZGRkYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNGRkQ3MDAiLz48L3JhZGlhbEdyYWRpZW50PjxyYWRpYWxHcmFkaWVudCBpZD0iYTUiIGN4PSIwLjUiIGN5PSIwLjUiIHI9IjAuNSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZGM0U3RiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0ZGN0FDNyIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGQ9Ik01MCAwIEE1MCA1MCAwIDAgMSAxMDAgNTBBIDUwIDUwIDAgMCAxIDUwIDEwMEEgNTAgNTAgMCAwIDEgMCA1MEEgNTAgNTAgMCAwIDEgNTAgMFoiIHRyYW5zZm9ybT0icm90YXRlKC0xMCAtMjUgLTUpIiBmaWxsPSIjRkY3QUM3Ii8+PHBhdGggZD0iTTUwIDYgQTYwIDYwIDAgMCAxIDk0IDUwQSA2MCA2MCAwIDAgMSA1MCA5NEEgNjAgNjAgMCAwIDEgNiA1MEEgNjAgNjAgMCAwIDEgNTAgNloiIHRyYW5zZm9ybT0icm90YXRlKDEwIC0yNSAtNSkiIGZpbGw9IiNGRjdBQzciLz48cGF0aCBkPSJNNTAgMTUgQTQwIDQwIDAgMCAxIDkwIDUwQSA0MCA0MCAwIDAgMSA1MCA5MEEgNDAgNDAgMCAwIDEgMTAgNTBBIDQwIDQwIDAgMCAxIDUwIDE1WiIgZmlsbD0idXJsKCNhNSkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxNSIgZmlsbD0idXJsKCNhNCkiLz48L3N2Zz4=',
                 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImIxIiBjeD0iMC41IiBjeT0iMC41IiByPSIwLjUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNGRkZGRkYiLz48c3RvcCBvZmZzZXQ9IjcwJSIgc3RvcC1jb2xvcj0iI0ZGRDA4MiIvPjwvcmFkaWFsR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJiMiIgY3g9IjAuNSIgY3k9IjAuNSIgcj0iMC41Ij48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjQ0EzNUUyIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRkY3QTY1Ii8+PC9kZWZzPjxwYXRoIGQ9Ik01MCAxMEwxNSAxNSwzMCA0MCw1IDEwMCA5NSAxMDAgNzAgNDAsODUgMTV6IiBmaWxsPSJ1cmwoI2IyKSIvPjxwYXRoIGQ9Ik01MCAyMEwyMCAyNSwzNSA0NSwxMCA5MCA5MCA5MCw2NSA0NSw4MCAyNXoiIGZpbGw9IiNGRjdBNjUiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMiIgZmlsbD0idXJsKCNiMSkiLz48L3N2Zz4=',
-                'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImMxIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzhBRDRGRiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0E3RjVGRiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjUwIiByeD0iNTAiIHJ5PSIzMCIgdHJhbnNmb3JtPSJyb3RhdGUoMzAgNTAgNTApIiBmaWxsPSJ1cmwoI2MxKSIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjUwIiByeD0iNTAiIHJ5PSIzMCIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgNTAgNTApIiBmaWxsPSJ1cmwoI2MxKSIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjUwIiByeD0iNTAiIHJ5PSIzMCIgdHJhbnNmb3JtPSJyb3RhdGUoMTUwIDUwIDUwKSIgZmlsbD0idXJsKCNjMSkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMiIgZmlsbD0iI0ZGRkVEMCIvPjwvc3ZnPg==',
-                'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImQxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAuOCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PHBhdGggZD0iTTUwIDBDNzUgMjAgODAgNzAgNTAgMTAwIDIwIDcwIDI1IDIwIDUwIDBaIiBmaWxsPSIjRjBDRUZBIi8+PHBhdGggZD0iTTUwIDEwQzcwIDMwIDc1IDcwIDUwIDkwIDMwIDcwIDMwIDMwIDUwIDEwWiIgZmlsbD0iI0Y4RTVGQiIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjQwIiBmaWxsPSJ1cmwoI2QxKSIvPjwvc3ZnPg=='
+                'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImMxIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzhBRDRGRiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0E3RjVGRiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjUwIiByeD0iNTAiIHJ5PSIzMCIgdHJhbnNmb3JtPSJyb3RhdGUoMzAgNTAgNTApIiBmaWxsPSJ1cmwoI2MxKSIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjUwIiByeD0iNTAiIHJ5PSIzMCIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgNTAgNTApIiBmaWxsPSJ1cmwoI2MxKSIvPjxlbGxpcHNlIGN4PSI1MCIgY3k9IjUwIiByeD0iNTAiIHJ5PSIzMCIgdHJhbnNmb3JtPSJyb3RhdGUoMTUwIDUwIDUwKSIgZmlsbD0idXJsKCNjMSkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMiIgZmlsbD0iI0ZGRkVEMCIvPjwvc3ZnPg=='
             ];
 
             function startFlowerShower() {
                 const flowerContainer = document.getElementById('flower-container');
                 if (!flowerContainer) return;
-                const numberOfPetals = 40;
+                const numberOfPetals = 30;
                 for (let i = 0; i < numberOfPetals; i++) {
                     setTimeout(() => {
                         const petal = document.createElement('div');
                         petal.classList.add('petal');
                         petal.style.backgroundImage = `url("${flowerSVGs[i % flowerSVGs.length]}")`;
                         const startX = Math.random() * window.innerWidth;
-                        const duration = Math.random() * 5 + 8;
-                        const delay = Math.random() * 5;
-                        const horizontalDrift = (Math.random() - 0.5) * 400;
+                        const duration = Math.random() * 4 + 7;
+                        const delay = Math.random() * 4;
+                        const horizontalDrift = (Math.random() - 0.5) * 300;
                         petal.style.left = `${startX}px`;
                         petal.animate([
                             { transform: `translate3d(0, 0, 0) rotateZ(0deg)`, opacity: 1 },
-                            { transform: `translate3d(${horizontalDrift}px, 105vh, 0) rotateZ(${Math.random() * 720}deg)`, opacity: 0 }
+                            { transform: `translate3d(${horizontalDrift}px, 105vh, 0) rotateZ(${Math.random() * 720}deg)`, opacity: 0.5 }
                         ], { duration: duration * 1000, delay: delay * 1000, easing: 'linear', fill: 'forwards' });
                         flowerContainer.appendChild(petal);
-                        setTimeout(() => petal.remove(), (duration + delay) * 1000);
-                    }, i * 100);
+                        setTimeout(() => petal.remove(), (duration + delay + 1) * 1000);
+                    }, i * 150);
                 }
             }
 
-            function showWelcomePackage() {
-                const packageContainer = document.getElementById('welcome-package');
-                const bouquetContainer = document.getElementById('welcome-bouquet');
-                if (!packageContainer || !bouquetContainer) return;
-                bouquetContainer.innerHTML = '';
-                const bouquetFlowers = [
-                    { svg: flowerSVGs[0], style: 'top: 20%; left: 30%; transform: rotate(-20deg) scale(1.2);' }, { svg: flowerSVGs[1], style: 'top: 15%; left: 55%; transform: rotate(15deg) scale(1.1);' },
-                    { svg: flowerSVGs[2], style: 'top: 45%; left: 45%; transform: rotate(-5deg) scale(1.3); z-index: 2;' }, { svg: flowerSVGs[3], style: 'top: 50%; left: 15%; transform: rotate(25deg);' },
-                    { svg: flowerSVGs[0], style: 'top: 40%; left: 70%; transform: rotate(-30deg) scale(0.9);' }, { svg: flowerSVGs[2], style: 'top: 65%; left: 35%; transform: rotate(10deg);' }
-                ];
-                bouquetFlowers.forEach(flower => {
-                    const flowerEl = document.createElement('div');
-                    flowerEl.className = 'bouquet-flower';
-                    flowerEl.style.backgroundImage = `url("${flower.svg}")`;
-                    flowerEl.style.cssText += flower.style;
-                    bouquetContainer.appendChild(flowerEl);
-                });
-                packageContainer.classList.add('visible');
-                setTimeout(() => packageContainer.classList.remove('visible'), 5000);
-            }
+            setTimeout(() => {
+                body.classList.remove('loading');
+                if (preloader) { setTimeout(() => { preloader.style.display = 'none'; }, 1500); }
+                setTimeout(() => {
+                    const duration = 2.5 * 1000; const animationEnd = Date.now() + duration;
+                    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001, colors: ['#00F5FF', '#AD00FF', '#EAEBFF', '#FFFFFF'] };
+                    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+                    const interval = setInterval(function() {
+                        const timeLeft = animationEnd - Date.now();
+                        if (timeLeft <= 0) {
+                            startFlowerShower();
+                            return clearInterval(interval);
+                        }
+                        const particleCount = 50 * (timeLeft / duration);
+                        myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                        myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                    }, 250);
+                }, 500);
+            }, 14500);
 
-            const confettiCanvas = document.getElementById('confetti-canvas');
-            const myConfetti = confetti.create(confettiCanvas, { resize: true, useWorker: true });
+            // --- App Download Calibration Modal Logic ---
             const calibrationModal = document.getElementById('calibration-modal');
             const calibrationTitle = document.getElementById('calibration-title');
             const calibrationText = document.getElementById('calibration-text');
             const downloadBtns = document.querySelectorAll('.download-btn');
             function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+            
             async function handleDownloadClick(event) {
                 event.preventDefault();
                 const downloadUrl = event.currentTarget.href;
@@ -944,7 +1081,6 @@
                 calibrationTitle.textContent = "Complete!";
                 calibrationText.style.color = 'var(--success-accent)';
                 calibrationText.textContent = "Your download is ready!";
-                myConfetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#00F5FF', '#AD00FF', '#EAEBFF'], scalar: 1.2 });
                 await sleep(2000);
                 window.open(downloadUrl, '_blank');
                 calibrationModal.classList.remove('visible');
@@ -953,27 +1089,7 @@
             }
             downloadBtns.forEach(btn => btn.addEventListener('click', handleDownloadClick));
 
-            const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                body.classList.remove('loading');
-                if (preloader) { setTimeout(() => { preloader.style.display = 'none'; }, 1500); }
-                setTimeout(() => {
-                    const duration = 3 * 1000; const animationEnd = Date.now() + duration;
-                    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001, colors: ['#00F5FF', '#AD00FF', '#EAEBFF', '#FFFFFF'] };
-                    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-                    const interval = setInterval(function() {
-                        const timeLeft = animationEnd - Date.now();
-                        if (timeLeft <= 0) {
-                            startFlowerShower(); setTimeout(showWelcomePackage, 1500);
-                            return clearInterval(interval);
-                        }
-                        const particleCount = 50 * (timeLeft / duration);
-                        myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                        myConfetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-                    }, 250);
-                }, 500);
-            }, 14500);
-
+            // --- Custom Cursor Logic ---
             if (window.matchMedia("(pointer: fine)").matches) {
                 const cursorDot = document.getElementById('cursor-dot');
                 const cursorGlow = document.getElementById('cursor-glow');
@@ -983,12 +1099,13 @@
                         if (cursorGlow) cursorGlow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
                     });
                 });
-                document.querySelectorAll('a, button, .btn, .language-selector a, .social-icon-wrapper a, .scroll-to-top, .swiper-button-next, .swiper-button-prev, .mobile-nav-trigger').forEach(el => {
+                document.querySelectorAll('a, button, .btn, .language-selector a, .social-icon-wrapper a, .scroll-to-top, .swiper-button-next, .swiper-button-prev, .mobile-nav-trigger, .lightbox-trigger').forEach(el => {
                     el.addEventListener('mouseenter', () => body.classList.add('link-hovered'));
                     el.addEventListener('mouseleave', () => body.classList.remove('link-hovered'));
                 });
             }
 
+            // --- Vendor Features Swiper ---
             const vendorFeatures = [
                 { imageUrl: "https://i.ytimg.com/vi/hWq5YqmTf9U/maxresdefault.jpg", title: "Send Invoices via WhatsApp" },
                 { imageUrl: "https://media.qrtiger.com/blog/2023/07/share-your-business-location_800.jpeg", title: "Scan QR to Open Shop Online" },
@@ -1012,6 +1129,7 @@
                 new Swiper('.features-swiper-container', { effect: 'coverflow', grabCursor: true, centeredSlides: true, slidesPerView: 'auto', loop: true, autoplay: { delay: 3000, disableOnInteraction: false }, coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: false }, pagination: { el: '.swiper-pagination', clickable: true }, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }, });
             }
 
+            // --- Vendor Modal Logic ---
             const vendorModal = document.getElementById('vendor-modal');
             const vendorLoginBtn = document.getElementById('vendor-login-btn');
             const modalCloseBtn = document.getElementById('modal-close-btn');
@@ -1024,23 +1142,70 @@
                 modalContinueBtn.addEventListener('click', () => { window.open("https://mapmyshopapp.github.io/map-my-shop-app/", '_blank'); closeModal(); });
             }
 
+            // --- Lightbox Logic ---
+            const lightboxModal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+
+            const showLightbox = (trigger) => {
+                const img = trigger.querySelector('img');
+                if (img && lightboxModal && lightboxImg) {
+                    lightboxImg.src = img.src;
+                    lightboxModal.classList.add('visible');
+                    body.classList.add('modal-open');
+                }
+            };
+            const hideLightbox = () => {
+                if (lightboxModal) {
+                    lightboxModal.classList.remove('visible');
+                    body.classList.remove('modal-open');
+                }
+            };
+
+            lightboxTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => showLightbox(trigger));
+            });
+            if(lightboxClose) lightboxClose.addEventListener('click', hideLightbox);
+            if(lightboxModal) lightboxModal.addEventListener('click', (e) => {
+                if(e.target === lightboxModal) hideLightbox();
+            });
+
+            // --- Language Translation & Voice Assistant Logic ---
             let currentTranslations = {}; let currentLang = 'en';
             const translations = {
                 en: {
-                    greeting: { morning: "Good Morning", afternoon: "Good Afternoon", evening: "Good Evening" }, voiceScript: "Welcome to MapMyShop. We're happy you're interested in exploring our platform. Let me give you a tour. MapMyShop is a powerful tech platform designed to bring your business online. You can build your brand, reach more customers, and manage inventory with intelligent alerts for expiring products, sent 7 days in advance. A great feature, right? It's like a complete ERP software. For a limited time, you can download the app and start your one-month trial, absolutely free! Next, let's talk about Employee Management. You can handle attendance, process salaries, and generate professional I-Cards with your store's unique barcode. Your team can manage customer orders, and you can monitor their performance. It's also a complete CRM system! We take the stress out of your shop management. From marketing to operations, we've got you covered, including WhatsApp invoicing and Excel data exports. It's your all-in-one solution in a single app. So, what are you waiting for? Download it right now! If you have any questions, feel free to contact us. We're always happy to help. Have a wonderful day, and we hope to see you soon. To hear this again, just press my button.", voiceName: 'Google UK English Female',
-                    splashGreeting: "Welcome", splashTagline1: "Digitize Your Storefront.", splashTagline2: "Empower Your Employees.", splashTagline3: "Shine Online.", splashGlobalText: "<i class='fas fa-globe'></i> Now available in 177+ countries", navHome: "Home", navPlatform: "Our Platform", navFeatures: "Features", navAppPreview: "App Preview", navReviews: "Reviews", navAbout: "About Us", navContact: "Contact", heroTitle: "<span class='brand-name'>MapMyShop:</span> Your Business, Intelligently Mapped & Managed.", heroSubtitle: "The ultimate all-in-one solution to digitize your shop, streamline operations, and boost your growth.", heroDownloadApp: "<i class='fas fa-download'></i> Download Our App", globalTitle: "Connecting Businesses Worldwide", globalSubtitle: "From local shops to international enterprises, MapMyShop is building a global network of empowered businesses across 177+ countries.", platformTitle: "MapMyShop: The All-in-One Business Powerhouse", platformSubtitle: "Stop juggling multiple tools! MapMyShop provides a unified platform to manage every aspect of your local business, from daily operations to strategic growth.", platformFeature1: "<i class='fas fa-store-alt'></i> Digital Storefront & Online Orders", platformFeature2: "<i class='fas fa-users-cog'></i> Comprehensive Employee Management", platformFeature3: "<i class='fas fa-id-card'></i> Professional I-Card Generation", platformFeature4: "<i class='fas fa-boxes-stacked'></i> Smart Inventory Control", platformFeature5: "<i class='fas fa-chart-pie'></i> Insightful Sales Analytics", platformFeature6: "<i class='fas fa-bullhorn'></i> Customer Engagement Tools", platformFreeTrial: "<i class='fas fa-gift'></i> FREE 1-Month Trial Activated! Experience the Full Power of MapMyShop.", trustedTitle: "Powering The Next Wave of Business", trustedSubtitle: "We are building the technological foundation for industry leaders and ambitious startups alike.", trustedJoiningSoon: "And many more joining soon...", appPreviewTitle: "See MapMyShop in Action", appPreviewSubtitle: "Get a glimpse of how our app simplifies business management and enhances customer connection.", appPreviewMobileButton: "<i class='fas fa-file-pdf'></i> View Preview", reviewsTitle: "Hear From Our Users", reviewsSubtitle: "See how MapMyShop is transforming local businesses like yours.", review1Text: "\"Employee management has become so much easier using MapMyShop. Tracking hours and performance is a breeze!\"", review1Author: "- A Happy Shop Owner", review2Text: "\"MapMyShop's stock management is incredibly intuitive. We always know what's on our shelves and what needs reordering.\"", review2Author: "- Retail Store Manager", aboutTitle: "About MapMyShop", aboutP1: "At MapMyShop, we are passionately dedicated to empowering local businesses with the transformative technology they need to thrive in today's competitive market. We provide comprehensive, cutting-edge tech solutions tailored to solve your unique operational challenges—from intelligent inventory and employee management to dynamic customer engagement and insightful market analysis.", aboutP2: "Our core mission is to make sophisticated technology accessible, affordable, and remarkably easy to use. We're here to help you streamline operations, amplify your visibility, foster growth, and ultimately, build a more successful and resilient business.", aboutFounderTitle: "Our Leadership", aboutFounderName: "Balkrushna Tapase", aboutFounderRole: "Founder & CEO, MapMyShop", aboutContactUs: "<i class='fas fa-map-marker-alt'></i> Contact Us / Visit Us:", teamTitle: "Meet Our Core Team", teamMemberGauravName: "Gaurav", teamMemberGauravRole: "Marketing Head", teamMemberRushikeshName: "Rushikesh Jadhav", teamMemberRushikeshRole: "Backend Developer", teamMemberAbhayName: "Abhay Patil", teamMemberAbhayRole: "Web Developer", teamComingSoon: "And many more amazing team members are joining soon...", ctaTitle: "Ready to Transform Your Business?", ctaSubtitle: "Join thousands of businesses thriving with MapMyShop's all-in-one solution. Download the app and start your journey to success.", ctaFreeTrialText: "<i class='fas fa-check-circle'></i> Your FREE 1-Month Trial is Waiting!", ctaDownloadApp: "<i class='fas fa-rocket'></i> Get The App Now", contactTitle: "Get In Touch", contactSubtitle: "Have questions or want to learn more? We're here to help!", contactEmail: "<i class='fas fa-envelope'></i>Email: <a href=\"mailto:mapmyshop2024@gmail.com\">mapmyshop2024@gmail.com</a>", contactPhone: "<i class='fas fa-phone-alt'></i>Phone No: <a href=\"tel:+919529338232\">+91 9529338232</a>", contactAddressInfo: "<i class='fas fa-building'></i>Or visit us at the address mentioned in the About Us section.", contactQueryMessage: "Feel free to contact us, we will be happy to serve you.", connectTitle: "Connect With Us", connectYoutube: "YouTube", connectLinkedin: "LinkedIn", connectInstagram: "Instagram (Coming Soon)", footerCopyright: "© 2024 MapMyShop Inc. All rights reserved.", footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service"
+                    greeting: { morning: "Good Morning", afternoon: "Good Afternoon", evening: "Good Evening" }, voiceScript: "Welcome to MapMyShop. We're happy you're interested in exploring our platform. Let me give you a tour. MapMyShop is a powerful tech platform designed to bring your business online. You can build your brand, reach more customers, and manage inventory with intelligent alerts. It's like a complete ERP software. For a limited time, you can download the app and start your one-month trial, absolutely free! We are also proud to be the official technology partner for the prestigious Pagariya Auto and their entire network of leading automotive brands in Jalgaon city, helping them digitize their operations. Next, let's talk about Employee Management. You can handle attendance, process salaries, and generate professional I-Cards. Your team can manage customer orders, and you can monitor their performance. It's also a complete CRM system! We take the stress out of your shop management. From marketing to operations, we've got you covered. It's your all-in-one solution in a single app. So, what are you waiting for? Download it right now! If you have any questions, feel free to contact us. We're always happy to help. Have a wonderful day. To hear this again, just press my button.", voiceName: 'Google UK English Female',
+                    splashGreeting: "Welcome", splashTagline1: "Digitize Your Storefront.", splashTagline2: "Empower Your Employees.", splashTagline3: "Shine Online.", splashGlobalText: "<i class='fas fa-globe'></i> Now available in 177+ countries", navHome: "Home", navPlatform: "Our Platform", navFeatures: "Features", navAppPreview: "App Preview", navReviews: "Reviews", navAbout: "About Us", navContact: "Contact", heroTitle: "<span class='brand-name'>MapMyShop:</span> Your Business, Intelligently Mapped & Managed.", heroSubtitle: "The ultimate all-in-one solution to digitize your shop, streamline operations, and boost your growth.", heroDownloadApp: "<i class='fas fa-download'></i> Download Our App", globalTitle: "Connecting Businesses Worldwide", globalSubtitle: "From local shops to international enterprises, MapMyShop is building a global network of empowered businesses across 177+ countries.", platformTitle: "MapMyShop: The All-in-One Business Powerhouse", platformSubtitle: "Stop juggling multiple tools! MapMyShop provides a unified platform to manage every aspect of your local business, from daily operations to strategic growth.", platformFeature1: "<i class='fas fa-store-alt'></i> Digital Storefront & Online Orders", platformFeature2: "<i class='fas fa-users-cog'></i> Comprehensive Employee Management", platformFeature3: "<i class='fas fa-id-card'></i> Professional I-Card Generation", platformFeature4: "<i class='fas fa-boxes-stacked'></i> Smart Inventory Control", platformFeature5: "<i class='fas fa-chart-pie'></i> Insightful Sales Analytics", platformFeature6: "<i class='fas fa-bullhorn'></i> Customer Engagement Tools", platformFreeTrial: "<i class='fas fa-gift'></i> FREE 1-Month Trial Activated! Experience the Full Power of MapMyShop.", trustedTitle: "Powering The Next Wave of Business", trustedSubtitle: "We are building the technological foundation for industry leaders and ambitious companies alike.", appPreviewTitle: "See MapMyShop in Action", appPreviewSubtitle: "Get a glimpse of how our app simplifies business management and enhances customer connection.", appPreviewMobileButton: "<i class='fas fa-file-pdf'></i> View Preview", reviewsTitle: "Hear From Our Users", reviewsSubtitle: "See how MapMyShop is transforming local businesses like yours.", review1Text: "\"Employee management has become so much easier using MapMyShop. Tracking hours and performance is a breeze!\"", review1Author: "- A Happy Shop Owner", review2Text: "\"MapMyShop's stock management is incredibly intuitive. We always know what's on our shelves and what needs reordering.\"", review2Author: "- Retail Store Manager", aboutTitle: "About MapMyShop", aboutP1: "At MapMyShop, we are passionately dedicated to empowering local businesses with the transformative technology they need to thrive in today's competitive market. We provide comprehensive, cutting-edge tech solutions tailored to solve your unique operational challenges—from intelligent inventory and employee management to dynamic customer engagement and insightful market analysis.", aboutP2: "Our core mission is to make sophisticated technology accessible, affordable, and remarkably easy to use. We're here to help you streamline operations, amplify your visibility, foster growth, and ultimately, build a more successful and resilient business.", aboutFounderTitle: "Our Leadership", aboutFounderName: "Balkrushna Tapase", aboutFounderRole: "Founder & CEO, MapMyShop", aboutContactUs: "<i class='fas fa-map-marker-alt'></i> Contact Us / Visit Us:", teamTitle: "Meet Our Core Team", teamMemberGauravName: "Gaurav", teamMemberGauravRole: "Marketing Head", teamMemberRushikeshName: "Rushikesh Jadhav", teamMemberRushikeshRole: "Backend Developer", teamMemberAbhayName: "Abhay Patil", teamMemberAbhayRole: "Web Developer", teamComingSoon: "And many more amazing team members are joining soon...", ctaTitle: "Ready to Transform Your Business?", ctaSubtitle: "Join thousands of businesses thriving with MapMyShop's all-in-one solution. Download the app and start your journey to success.", ctaFreeTrialText: "<i class='fas fa-check-circle'></i> Your FREE 1-Month Trial is Waiting!", ctaDownloadApp: "<i class='fas fa-rocket'></i> Get The App Now", contactTitle: "Get In Touch", contactSubtitle: "Have questions or want to learn more? We're here to help!", contactEmail: "<i class='fas fa-envelope'></i>Email: <a href=\"mailto:mapmyshop2024@gmail.com\">mapmyshop2024@gmail.com</a>", contactPhone: "<i class='fas fa-phone-alt'></i>Phone No: <a href=\"tel:+919529338232\">+91 9529338232</a>", contactAddressInfo: "<i class='fas fa-building'></i>Or visit us at the address mentioned in the About Us section.", contactQueryMessage: "Feel free to contact us, we will be happy to serve you.", connectTitle: "Connect With Us", connectYoutube: "YouTube", connectLinkedin: "LinkedIn", connectInstagram: "Instagram (Coming Soon)", footerCopyright: "© 2024 MapMyShop Inc. All rights reserved.", footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service"
                 },
                 hi: {
-                    greeting: { morning: "सुप्रभात", afternoon: "नमस्कार", evening: "शुभ संध्या" }, voiceScript: "मैपमाईशॉप में आपका स्वागत है। हमें खुशी है कि आप हमारे प्लेटफ़ॉर्म को एक्सप्लोर करने में रुचि रखते हैं। चलिए मैं आपको बताती हूं कि मैपमाईशॉप क्या है। मैपमाईशॉप एक शक्तिशाली टेक प्लेटफ़ॉर्म है जो आपके व्यवसाय को ऑनलाइन लाने के लिए डिज़ाइन किया गया है। आप अपना ब्रांड बना सकते हैं, अधिक ग्राहकों तक पहुँच सकते हैं, और एक्सपायर होने वाले उत्पादों के लिए बुद्धिमान अलर्ट के साथ इन्वेंट्री का प्रबंधन कर सकते हैं, जो 7 दिन पहले भेजे जाते हैं। एक बेहतरीन सुविधा, है ना? यह एक संपूर्ण ईआरपी सॉफ्टवेयर की तरह है। सीमित समय के लिए, आप ऐप डाउनलोड कर सकते हैं और अपना एक महीने का ट्रायल शुरू कर सकते हैं, बिल्कुल मुफ्त! अगला, चलिए कर्मचारी प्रबंधन के बारे में बात करते हैं। आप उपस्थिति को संभाल सकते हैं, वेतन की प्रक्रिया कर सकते हैं, और अपनी दुकान के अद्वितीय बारकोड के साथ पेशेवर आई-कार्ड बना सकते हैं। आपकी टीम ग्राहक के आदेशों का प्रबंधन कर सकती है, और आप उनके प्रदर्शन की निगरानी कर सकते हैं। यह एक संपूर्ण सीआरएम प्रणाली भी है! हम आपकी दुकान के प्रबंधन से तनाव को दूर करते हैं। मार्केटिंग से लेकर संचालन तक, हमने आपको कवर किया है, जिसमें व्हाट्सएप इनवॉइसिंग और एक्सेल डेटा एक्सपोर्ट शामिल हैं। यह एक ही ऐप में आपका ऑल-इन-वन समाधान है। तो, आप किसका इंतज़ार कर रहे हैं? इसे अभी डाउनलोड करें! यदि आपके कोई प्रश्न हैं, तो हमसे संपर्क करने में संकोच न करें। हमें आपकी मदद करने में हमेशा खुशी होती है। आपका दिन शुभ हो, और हम जल्द ही आपसे मिलने की उम्मीद करते हैं। इसे दोबारा सुनने के लिए, बस मेरा बटन दबाएं।", voiceName: 'Google हिन्दी',
-                    splashGreeting: "आपका स्वागत है", splashTagline1: "अपनी दुकान को डिजिटल बनाएं।", splashTagline2: "अपने कर्मचारियों को सशक्त बनाएं।", splashTagline3: "ऑनलाइन चमकें।", splashGlobalText: "<i class='fas fa-globe'></i> अब 177+ देशों में उपलब्ध है", navHome: "होम", navPlatform: "हमारा प्लेटफार्म", navFeatures: "विशेषताएँ", navAppPreview: "ऐप पूर्वावलोकन", navReviews: "समीक्षाएँ", navAbout: "हमारे बारे में", navContact: "संपर्क करें", heroTitle: "<span class='brand-name'>मैपमाईशॉप:</span> आपका व्यवसाय, बुद्धिमानी से मैप और प्रबंधित।", heroSubtitle: "अपनी दुकान को डिजिटाइज़ करने, संचालन को सुव्यवस्थित करने और अपने विकास को बढ़ावा देने के लिए अंतिम ऑल-इन-वन समाधान।", heroDownloadApp: "<i class='fas fa-download'></i> हमारा ऐप डाउनलोड करें", globalTitle: "दुनिया भर के व्यवसायों को जोड़ना", globalSubtitle: "स्थानीय दुकानों से लेकर अंतरराष्ट्रीय उद्यमों तक, मैपमाईशॉप 177+ देशों में सशक्त व्यवसायों का एक वैश्विक नेटवर्क बना रहा है।", platformTitle: "मैपमाईशॉप: ऑल-इन-वन बिजनेस पावरहाउस", platformSubtitle: "कई टूल के बीच जूझना बंद करें! मैपमाईशॉप आपके स्थानीय व्यवसाय के हर पहलू को प्रबंधित करने के लिए एक एकीकृत मंच प्रदान करता है, दैनिक संचालन से लेकर रणनीतिक विकास तक।", platformFeature1: "<i class='fas fa-store-alt'></i> डिजिटल स्टोरफ्रंट और ऑनलाइन ऑर्डर", platformFeature2: "<i class='fas fa-users-cog'></i> व्यापक कर्मचारी प्रबंधन", platformFeature3: "<i class='fas fa-id-card'></i> पेशेवर आई-कार्ड जनरेशन", platformFeature4: "<i class='fas fa-boxes-stacked'></i> स्मार्ट इन्वेंटरी नियंत्रण", platformFeature5: "<i class='fas fa-chart-pie'></i> अंतर्दृष्टिपूर्ण बिक्री विश्लेषण", platformFeature6: "<i class='fas fa-bullhorn'></i> ग्राहक जुड़ाव उपकरण", platformFreeTrial: "<i class='fas fa-gift'></i> मुफ़्त 1-महीने का ट्रायल सक्रिय! मैपमाईशॉप की पूरी शक्ति का अनुभव करें।", trustedTitle: "व्यवसाय की अगली लहर को शक्ति देना", trustedSubtitle: "हम उद्योग के नेताओं और महत्वाकांक्षी स्टार्टअप्स के लिए समान रूप से तकनीकी नींव बना रहे हैं।", trustedJoiningSoon: "और भी बहुत कुछ जल्द ही जुड़ रहा है...", appPreviewTitle: "मैपमाईशॉप को एक्शन में देखें", appPreviewSubtitle: "एक झलक पाएं कि हमारा ऐप व्यवसाय प्रबंधन को कैसे सरल बनाता है और ग्राहक कनेक्शन को कैसे बढ़ाता है।", appPreviewMobileButton: "<i class='fas fa-file-pdf'></i> पूर्वावलोकन देखें", reviewsTitle: "हमारे उपयोगकर्ताओं से सुनें", reviewsSubtitle: "देखें कि मैपमाईशॉप आपके जैसे स्थानीय व्यवसायों को कैसे बदल रहा है।", review1Text: "\"मैपमाईशॉप का उपयोग करके कर्मचारी प्रबंधन बहुत आसान हो गया है। घंटे और प्रदर्शन पर नज़र रखना आसान है!\"", review1Author: "- एक खुश दुकान मालिक", review2Text: "\"मैपमाईशॉप का स्टॉक प्रबंधन अविश्वसनीय रूप से सहज है। हम हमेशा जानते हैं कि हमारी अलमारियों पर क्या है और क्या पुनः ऑर्डर करने की आवश्यकता है।\"", review2Author: "- खुदरा स्टोर प्रबंधक", aboutTitle: "मैपमाईशॉप के बारे में", aboutP1: "मैपमाईशॉप में, हम स्थानीय व्यवसायों को आज के प्रतिस्पर्धी बाजार में आगे बढ़ने के लिए आवश्यक परिवर्तनकारी तकनीक के साथ सशक्त बनाने के लिए पूरी लगन से समर्पित हैं। हम आपकी अनूठी परिचालन चुनौतियों को हल करने के लिए व्यापक, अत्याधुनिक तकनीकी समाधान प्रदान करते हैं - बुद्धिमान इन्वेंट्री और कर्मचारी प्रबंधन से लेकर गतिशील ग्राहक जुड़ाव और अंतर्दृष्टिपूर्ण बाजार विश्लेषण तक।", aboutP2: "हमारा मुख्य मिशन परिष्कृत तकनीक को सुलभ, किफायती और उल्लेखनीय रूप से उपयोग में आसान बनाना है। हम यहां संचालन को सुव्यवस्थित करने, आपकी दृश्यता बढ़ाने, विकास को बढ़ावा देने और अंततः एक अधिक सफल और लचीला व्यवसाय बनाने में आपकी सहायता करने के लिए हैं।", aboutFounderTitle: "हमारा नेतृत्व", aboutFounderName: "बाळकृष्ण तपासे", aboutFounderRole: "संस्थापक और सीईओ, मैपमाईशॉप", aboutContactUs: "<i class='fas fa-map-marker-alt'></i> हमसे संपर्क करें / हमसे मिलें:", teamTitle: "हमारी कोर टीम से मिलें", teamMemberGauravName: "गौरव", teamMemberGauravRole: "विपणन प्रमुख", teamMemberRushikeshName: "ऋषिकेश जाधव", teamMemberRushikeshRole: "बैकएंड डेवलपर", teamMemberAbhayName: "अभय पाटिल", teamMemberAbhayRole: "वेब डेवलपर", teamComingSoon: "और भी कई अद्भुत टीम सदस्य जल्द ही जुड़ रहे हैं...", ctaTitle: "अपने व्यवसाय को बदलने के लिए तैयार हैं?", ctaSubtitle: "मैपमाईशॉप के ऑल-इन-वन समाधान के साथ फल-फूल रहे हजारों व्यवसायों से जुड़ें। ऐप डाउनलोड करें और सफलता की अपनी यात्रा शुरू करें।", ctaFreeTrialText: "<i class='fas fa-check-circle'></i> आपका मुफ़्त 1-महीने का ट्रायल इंतज़ार कर रहा है!", ctaDownloadApp: "<i class='fas fa-rocket'></i> अभी ऐप प्राप्त करें", contactTitle: "संपर्क में रहें", contactSubtitle: "कोई प्रश्न है या अधिक जानना चाहते हैं? हमलोग यहां सहायता के लिए हैं!", contactEmail: "<i class='fas fa-envelope'></i>ईमेल: <a href=\"mailto:mapmyshop2024@gmail.com\">mapmyshop2024@gmail.com</a>", contactPhone: "<i class='fas fa-phone-alt'></i>फ़ोन नंबर: <a href=\"tel:+919529338232\">+91 9529338232</a>", contactAddressInfo: "<i class='fas fa-building'></i>या हमारे बारे में अनुभाग में उल्लिखित पते पर हमसे मिलें।", contactQueryMessage: "कोई भी प्रश्न पूछने के लिए स्वतंत्र महसूस करें, हम आपकी सेवा करके खुश होंगे।", connectTitle: "हमसे जुड़ें", connectYoutube: "यूट्यूब", connectLinkedin: "लिंक्डइन", connectInstagram: "इंस्टाग्राम (जल्द आ रहा है)", footerCopyright: "© 2024 मैपमाईशॉप इंक. सर्वाधिकार सुरक्षित।", footerPrivacy: "गोपनीयता नीति", footerTerms: "सेवा की शर्तें"
+                    greeting: { morning: "सुप्रभात", afternoon: "नमस्कार", evening: "शुभ संध्या" }, voiceScript: "मैपमाईशॉप में आपका स्वागत है। हमें खुशी है कि आप हमारे प्लेटफ़ॉर्म को एक्सप्लोर करने में रुचि रखते हैं। चलिए मैं आपको बताती हूं। मैपमाईशॉप एक शक्तिशाली टेक प्लेटफ़ॉर्म है जो आपके व्यवसाय को ऑनलाइन लाने के लिए डिज़ाइन किया गया है। आप अपना ब्रांड बना सकते हैं, और इन्वेंट्री का प्रबंधन कर सकते हैं। यह एक संपूर्ण ईआरपी सॉफ्टवेयर की तरह है। सीमित समय के लिए, आप ऐप डाउनलोड कर सकते हैं और अपना एक महीने का ट्रायल शुरू कर सकते हैं, बिल्कुल मुफ्त! हमें इस बात पर भी गर्व है कि हम जलगांव शहर में प्रतिष्ठित 'पगरिया ऑटो' और उनके प्रमुख ऑटोमोटिव ब्रांडों के पूरे नेटवर्क के लिए आधिकारिक प्रौद्योगिकी भागीदार हैं, जिससे उन्हें अपने संचालन को डिजिटल बनाने में मदद मिल रही है। अगला, चलिए कर्मचारी प्रबंधन के बारे में बात करते हैं। आप उपस्थिति को संभाल सकते हैं, वेतन की प्रक्रिया कर सकते हैं, और पेशेवर आई-कार्ड बना सकते हैं। आपकी टीम ग्राहक के आदेशों का प्रबंधन कर सकती है, और आप उनके प्रदर्शन की निगरानी कर सकते हैं। यह एक संपूर्ण सीआरएम प्रणाली भी है! हम आपकी दुकान के प्रबंधन से तनाव को दूर करते हैं। मार्केटिंग से लेकर संचालन तक, हमने आपको कवर किया है। यह एक ही ऐप में आपका ऑल-इन-वन समाधान है। तो, आप किसका इंतज़ार कर रहे हैं? इसे अभी डाउनलोड करें! यदि आपके कोई प्रश्न हैं, तो हमसे संपर्क करने में संकोच न करें। आपका दिन शुभ हो। इसे दोबारा सुनने के लिए, बस मेरा बटन दबाएं।", voiceName: 'Google हिन्दी',
+                    trustedSubtitle: "हम उद्योग के नेताओं और महत्वाकांक्षी कंपनियों के लिए समान रूप से तकनीकी नींव बना रहे हैं।",
                 },
                 mr: {
-                    greeting: { morning: "शुभ सकाळ", afternoon: "नमस्कार", evening: "शुभ संध्या" }, voiceScript: "मॅपमायशॉपमध्ये आपले स्वागत आहे. आपण आमच्या प्लॅटफॉर्मबद्दल जाणून घेण्यास उत्सुक आहात याचा आम्हाला आनंद आहे. मी तुम्हाला एक ओळख करून देते. मॅपमायशॉप हे एक शक्तिशाली तंत्रज्ञान प्लॅटफॉर्म आहे जे आपला व्यवसाय ऑनलाइन आणण्यासाठी डिझाइन केलेले आहे. आपण आपला ब्रँड तयार करू शकता, अधिक ग्राहकांपर्यंत पोहोचू शकता, आणि एक्सपायर होणाऱ्या उत्पादनांसाठी बुद्धिमान अलर्टसह इन्व्हेंटरी व्यवस्थापित करू शकता, जे ७ दिवस आधी पाठवले जातात. एक उत्तम वैशिष्ट्य आहे, नाही का? हे एका संपूर्ण ईआरपी सॉफ्टवेअरसारखे आहे. मर्यादित कालावधीसाठी, आपण ॲप डाउनलोड करून आपली एक महिन्याची चाचणी सुरू करू शकता, पूर्णपणे विनामूल्य! पुढे, कर्मचारी व्यवस्थापनाबद्दल बोलूया. आपण हजेरी, पगार प्रक्रिया आणि आपल्या स्टोअरच्या अद्वितीय बारकोडसह व्यावसायिक आय-कार्ड तयार करू शकता. तुमची टीम ग्राहकांच्या ऑर्डर व्यवस्थापित करू शकते आणि तुम्ही त्यांच्या कामगिरीवर लक्ष ठेवू शकता. ही एक संपूर्ण सीआरएम प्रणाली देखील आहे! आम्ही तुमच्या दुकानाच्या व्यवस्थापनाचा ताण कमी करतो. मार्केटिंगपासून ते ऑपरेशन्सपर्यंत, आम्ही व्हॉट्सॲप इनव्हॉइसिंग आणि एक्सेल डेटा एक्सपोर्टसह सर्व काही सांभाळतो. हे एकाच ॲपमधील आपले ऑल-इन-वन समाधान आहे. तर, आपण कशाची वाट पाहत आहात? ते आताच डाउनलोड करा! आपल्याला काही प्रश्न असल्यास, आमच्याशी संपर्क साधा. आम्हाला आपली मदत करण्यात नेहमीच आनंद होईल. आपला दिवस आनंदात जावो, आणि आम्ही लवकरच आपल्याला भेटण्याची आशा करतो. हे पुन्हा ऐकण्यासाठी, फक्त माझे बटण दाबा.", voiceName: 'Google मराठी',
-                    splashGreeting: "आपले स्वागत आहे", splashTagline1: "तुमचे दुकान डिजिटल करा.", splashTagline2: "तुमच्या कर्मचाऱ्यांना सक्षम करा.", splashTagline3: "ऑनलाइन चमका.", splashGlobalText: "<i class='fas fa-globe'></i> आता १७७+ देशांमध्ये उपलब्ध", navHome: "मुख्यपृष्ठ", navPlatform: "आमचे प्लॅटफॉर्म", navFeatures: "वैशिष्ट्ये", navAppPreview: "ॲप पूर्वावलोकन", navReviews: "पुनरावलोकने", navAbout: "आमच्याबद्दल", navContact: "संपर्क", heroTitle: "<span class='brand-name'>मॅपमायशॉप:</span> तुमचा व्यवसाय, हुशारीने मॅप आणि व्यवस्थापित.", heroSubtitle: "तुमचे दुकान डिजिटाईज करण्यासाठी, ऑपरेशन्स सुव्यवस्थित करण्यासाठी आणि तुमच्या वाढीला चालना देण्यासाठी अंतिम ऑल-इन-वन समाधान.", heroDownloadApp: "<i class='fas fa-download'></i> आमचे ॲप डाउनलोड करा", globalTitle: "जगभरातील व्यवसायांना जोडत आहे", globalSubtitle: "स्थानिक दुकानांपासून ते आंतरराष्ट्रीय उद्योगांपर्यंत, मॅपमायशॉप १७७+ देशांमध्ये सक्षम व्यवसायांचे जागतिक नेटवर्क तयार करत आहे.", platformTitle: "मॅपमायशॉप: ऑल-इन-वन बिझनेस पॉवरहाऊस", platformSubtitle: "अनेक साधनांशी झगडणे थांबवा! मॅपमायशॉप तुमच्या स्थानिक व्यवसायाच्या प्रत्येक पैलूचे व्यवस्थापन करण्यासाठी एक एकीकृत प्लॅटफॉर्म प्रदान करते, दैनंदिन ऑपरेशन्सपासून ते धोरणात्मक वाढीपर्यंत.", platformFeature1: "<i class='fas fa-store-alt'></i> डिजिटल स्टोअरफ्रंट आणि ऑनलाइन ऑर्डर", platformFeature2: "<i class='fas fa-users-cog'></i> व्यापक कर्मचारी व्यवस्थापन", platformFeature3: "<i class='fas fa-id-card'></i> व्यावसायिक आय-कार्ड निर्मिती", platformFeature4: "<i class='fas fa-boxes-stacked'></i> स्मार्ट इन्व्हेंटरी नियंत्रण", platformFeature5: "<i class='fas fa-chart-pie'></i> अंतर्ज्ञानी विक्री विश्लेषण", platformFeature6: "<i class='fas fa-bullhorn'></i> ग्राहक प्रतिबद्धता साधने", platformFreeTrial: "<i class='fas fa-gift'></i> मोफत १-महिन्याचा ट्रायल सक्रिय! मॅपमायशॉपच्या पूर्ण शक्तीचा अनुभव घ्या.", trustedTitle: "व्यवसायाच्या पुढील लाटेला सामर्थ्य देत आहे", trustedSubtitle: "आम्ही उद्योग नेते आणि महत्त्वाकांक्षी स्टार्टअप्ससाठी तांत्रिक पाया तयार करत आहोत.", trustedJoiningSoon: "आणि बरेच काही लवकरच सामील होत आहे...", appPreviewTitle: "मॅपमायशॉप कृतीत पहा", appPreviewSubtitle: "आमचे ॲप व्यवसाय व्यवस्थापन कसे सोपे करते आणि ग्राहक संबंध कसे वाढवते याची एक झलक मिळवा.", appPreviewMobileButton: "<i class='fas fa-file-pdf'></i> पूर्वावलोकन पहा", reviewsTitle: "आमच्या वापरकर्त्यांकडून ऐका", reviewsSubtitle: "पहा मॅपमायशॉप तुमच्यासारख्या स्थानिक व्यवसायांना कसे बदलत आहे.", review1Text: "\"मॅपमायशॉप वापरून कर्मचारी व्यवस्थापन खूप सोपे झाले आहे. कामाचे तास आणि कामगिरीचा मागोवा घेणे आता सोपे झाले आहे!\"", review1Author: "- एक आनंदी दुकान मालक", review2Text: "\"मॅपमाईशॉपचे स्टॉक व्यवस्थापन आश्चर्यकारकपणे अंतर्ज्ञानी आहे. आमच्या शेल्फवर काय आहे आणि काय पुन्हा ऑर्डर करण्याची आवश्यकता आहे हे आम्हाला नेहमी माहित असते.\"", review2Author: "- रिटेल स्टोअर व्यवस्थापक", aboutTitle: "मॅपमायशॉप बद्दल", aboutP1: "मॅपमायशॉपमध्ये, आम्ही स्थानिक व्यवसायांना आजच्या स्पर्धात्मक बाजारपेठेत भरभराट होण्यासाठी आवश्यक असलेल्या परिवर्तनकारी तंत्रज्ञानासह सक्षम करण्यासाठी अत्यंत समर्पित आहोत. आम्ही तुमच्या अद्वितीय ऑपरेशनल आव्हानांवर मात करण्यासाठी सर्वसमावेशक, अत्याधुनिक तांत्रिक उपाय प्रदान करतो—बुद्धिमान इन्व्हेंटरी आणि कर्मचारी व्यवस्थापनापासून ते डायनॅमिक ग्राहक प्रतिबद्धता आणि अंतर्दृष्टीपूर्ण बाजार विश्लेषणापर्यंत.", aboutP2: "आमचे मुख्य ध्येय अत्याधुनिक तंत्रज्ञान सुलभ, परवडणारे आणि वापरण्यास अत्यंत सोपे बनवणे आहे. आम्ही तुम्हाला ऑपरेशन्स सुव्यवस्थित करण्यात, तुमची दृश्यमानता वाढवण्यात, वाढीस चालना देण्यासाठी आणि शेवटी, अधिक यशस्वी आणि लवचिक व्यवसाय तयार करण्यात मदत करण्यासाठी येथे आहोत.", aboutFounderTitle: "आमचे नेतृत्व", aboutFounderName: "बाळकृष्ण तपासे", aboutFounderRole: "संस्थापक आणि सीईओ, मॅपमायशॉप", aboutContactUs: "<i class='fas fa-map-marker-alt'></i> आमच्याशी संपर्क साधा / आम्हाला भेट द्या:", teamTitle: "आमच्या कोर टीमला भेटा", teamMemberGauravName: "गौरव", teamMemberGauravRole: "विपणन प्रमुख", teamMemberRushikeshName: "ऋषिकेश जाधव", teamMemberRushikeshRole: "बॅकएंड डेव्हलपर", teamMemberAbhayName: "अभय पाटील", teamMemberAbhayRole: "वेब डेव्हलपर", teamComingSoon: "आणि बरेच अद्भुत टीम सदस्य लवकरच सामील होत आहेत...", ctaTitle: "तुमचा व्यवसाय बदलण्यासाठी तयार आहात?", ctaSubtitle: "मॅपमायशॉपच्या ऑल-इन-वन सोल्यूशनसह भरभराट करणाऱ्या हजारो व्यवसायांमध्ये सामील व्हा. ॲप डाउनलोड करा आणि तुमच्या यशाचा प्रवास सुरू करा.", ctaFreeTrialText: "<i class='fas fa-check-circle'></i> तुमचा मोफत १-महिन्याचा ट्रायल वाट पाहत आहे!", ctaDownloadApp: "<i class='fas fa-rocket'></i> आत्ताच ॲप मिळवा", contactTitle: "संपर्कात रहा", contactSubtitle: "प्रश्न आहेत किंवा अधिक जाणून घेऊ इच्छिता? आम्ही मदतीसाठी येथे आहोत!", contactEmail: "<i class='fas fa-envelope'></i>ईमेल: <a href=\"mailto:mapmyshop2024@gmail.com\">mapmyshop2024@gmail.com</a>", contactPhone: "<i class='fas fa-phone-alt'></i>फोन नंबर: <a href=\"tel:+919529338232\">+91 9529338232</a>", contactAddressInfo: "<i class='fas fa-building'></i>किंवा आमच्याबद्दल विभागात नमूद केलेल्या पत्त्यावर आम्हाला भेट द्या.", contactQueryMessage: "कोणताही प्रश्न विचारण्यास मोकळे राहा, आम्ही तुमची सेवा करण्यास आनंदी असू.", connectTitle: "आमच्याशी कनेक्ट व्हा", connectYoutube: "यूट्यूब", connectLinkedin: "लिंक्डइन", connectInstagram: "इंस्टाग्राम (लवकरच येत आहे)", footerCopyright: "© 2024 मॅपमायशॉप इं. सर्व हक्क राखीव.", footerPrivacy: "गोपनीयता धोरण", footerTerms: "सेवा अटी"
+                    greeting: { morning: "शुभ सकाळ", afternoon: "नमस्कार", evening: "शुभ संध्या" }, voiceScript: "मॅपमायशॉपमध्ये आपले स्वागत आहे. आपण आमच्या प्लॅटफॉर्मबद्दल जाणून घेण्यास उत्सुक आहात याचा आम्हाला आनंद आहे. मी तुम्हाला एक ओळख करून देते. मॅपमायशॉप हे एक शक्तिशाली तंत्रज्ञान प्लॅटफॉर्म आहे जे आपला व्यवसाय ऑनलाइन आणण्यासाठी डिझाइन केलेले आहे. आपण आपला ब्रँड तयार करू शकता आणि इन्व्हेंटरी व्यवस्थापित करू शकता. हे एका संपूर्ण ईआरपी सॉफ्टवेअरसारखे आहे. मर्यादित कालावधीसाठी, आपण ॲप डाउनलोड करून आपली एक महिन्याची चाचणी सुरू करू शकता, पूर्णपणे विनामूल्य! आम्हाला याचाही अभिमान आहे की आम्ही जळगाव शहरातील प्रतिष्ठित 'पगरिया ऑटो' आणि त्यांच्या प्रमुख ऑटोमोटिव्ह ब्रँड्सच्या संपूर्ण नेटवर्कसाठी अधिकृत तंत्रज्ञान भागीदार आहोत, ज्यामुळे त्यांना त्यांचे कार्य डिजिटल बनविण्यात मदत होत आहे. पुढे, कर्मचारी व्यवस्थापनाबद्दल बोलूया. आपण हजेरी, पगार प्रक्रिया आणि व्यावसायिक आय-कार्ड तयार करू शकता. तुमची टीम ग्राहकांच्या ऑर्डर व्यवस्थापित करू शकते आणि तुम्ही त्यांच्या कामगिरीवर लक्ष ठेवू शकता. ही एक संपूर्ण सीआरएम प्रणाली देखील आहे! आम्ही तुमच्या दुकानाच्या व्यवस्थापनाचा ताण कमी करतो. मार्केटिंगपासून ते ऑपरेशन्सपर्यंत, आम्ही सर्व काही सांभाळतो. हे एकाच ॲपमधील आपले ऑल-इन-वन समाधान आहे. तर, आपण कशाची वाट पाहत आहात? ते आताच डाउनलोड करा! आपल्याला काही प्रश्न असल्यास, आमच्याशी संपर्क साधा. आपला दिवस आनंदात जावो. हे पुन्हा ऐकण्यासाठी, फक्त माझे बटण दाबा.", voiceName: 'Google मराठी',
+                    trustedSubtitle: "आम्ही उद्योग नेते आणि महत्त्वाकांक्षी कंपन्यांसाठी तांत्रिक पाया तयार करत आहोत.",
                 }
             };
+            
+            // Function to deeply merge objects for translations
+            function mergeDeep(target, source) {
+                for (const key in source) {
+                    if (source[key] instanceof Object && key in target) {
+                        Object.assign(source[key], mergeDeep(target[key], source[key]));
+                    }
+                }
+                Object.assign(target || {}, source);
+                return target;
+            }
+
+            // Set full translations for hi and mr by merging with en
+            translations.hi = mergeDeep(JSON.parse(JSON.stringify(translations.en)), translations.hi);
+            translations.mr = mergeDeep(JSON.parse(JSON.stringify(translations.en)), translations.mr);
+
             const languageSelectors = document.querySelectorAll('.language-selector a');
             const translatableElements = document.querySelectorAll('[data-lang-key]');
+            
             function changeLanguage(lang) {
                 currentLang = lang; currentTranslations = translations[lang] || translations.en;
                 translatableElements.forEach(el => {
@@ -1061,24 +1226,35 @@
             const remainingTextSpan = document.getElementById('remaining-text');
             if ('speechSynthesis' in window) {
                 const synth = window.speechSynthesis;
+                let voices = [];
+                const loadVoices = () => {
+                    voices = synth.getVoices();
+                };
+                loadVoices();
+                if (synth.onvoiceschanged !== undefined) {
+                    synth.onvoiceschanged = loadVoices;
+                }
+
                 voiceAssistantBtn.addEventListener('click', () => {
                     if (synth.speaking) { synth.cancel(); return; }
-                    let voices = synth.getVoices();
-                    if (voices.length === 0) { alert("Sorry, the voice assistant is not available on your browser right now."); return; }
+                    if (voices.length === 0) { alert("Voice assistant is still initializing. Please try again in a moment."); return; }
+                    
                     const time = new Date().getHours();
                     let greeting = (time < 12) ? currentTranslations.greeting.morning : (time < 18) ? currentTranslations.greeting.afternoon : currentTranslations.greeting.evening;
                     const fullScript = `${greeting}. ${currentTranslations.voiceScript}`;
                     const utterance = new SpeechSynthesisUtterance(fullScript);
                     const voiceName = currentTranslations.voiceName;
+                    
                     utterance.voice = voices.find(voice => voice.name === voiceName) || voices.find(voice => voice.lang.startsWith(currentLang)) || (currentLang === 'mr' ? voices.find(voice => voice.lang === 'hi-IN') : null) || voices[0];
                     utterance.onstart = () => { voiceAssistantBtn.classList.add('speaking'); if(spokenTextSpan) spokenTextSpan.textContent = ''; if(remainingTextSpan) remainingTextSpan.textContent = fullScript; if(transcriptContainer) transcriptContainer.classList.add('visible'); };
-                    utterance.onboundary = (e) => { if(spokenTextSpan && remainingTextSpan){ spokenTextSpan.textContent = fullScript.substring(0, e.charIndex); remainingTextSpan.textContent = fullScript.substring(e.charIndex); } };
+                    utterance.onboundary = (e) => { if(spokenTextSpan && remainingTextSpan){ const spoken = fullScript.substring(0, e.charIndex + e.charLength); remainingTextSpan.textContent = fullScript.substring(e.charIndex + e.charLength); spokenTextSpan.textContent = spoken; } };
                     utterance.onend = () => { voiceAssistantBtn.classList.remove('speaking'); setTimeout(() => transcriptContainer && transcriptContainer.classList.remove('visible'), 4000); };
                     utterance.onerror = (e) => { console.error("Speech Synthesis Error", e); voiceAssistantBtn.classList.remove('speaking'); if(transcriptContainer) transcriptContainer.classList.remove('visible'); };
                     synth.speak(utterance);
                 });
             } else { if(voiceAssistantBtn) voiceAssistantBtn.style.display = 'none'; }
 
+            // --- Scroll-based Animations & Nav Highlighting ---
             const header = document.querySelector('.main-header');
             const scrollToTopBtn = document.querySelector('.scroll-to-top');
             function onScroll() {
